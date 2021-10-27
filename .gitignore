@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# User-specific files
+1.py
+test.zip
+test1.zip
+zip.zip
+zipfile
+
 # C extensions
 *.so
 
