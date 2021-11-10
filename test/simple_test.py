@@ -38,7 +38,10 @@ def file_size_check(target_file_name):
 	else: 
 		return True
 
-def 
+# def metadata_file_check(target_file_name):
+
+# 	meta_file_id = "ro-crate-metadata.json"
+
 
 def main():
 

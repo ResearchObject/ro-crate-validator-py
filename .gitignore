@@ -9,6 +9,7 @@ test.zip
 test1.zip
 zip.zip
 zipfile
+.DS_Store
 
 # C extensions
 *.so

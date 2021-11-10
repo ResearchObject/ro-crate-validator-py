@@ -1,0 +1,71 @@
+{
+    "@context": "https://w3id.org/ro/crate/1.1/context",
+    "@graph": [
+        {
+            "@id": "./",
+            "@type": "Dataset",
+            "datePublished": "2021-10-27T17:32:36.500085",
+            "hasPart": [
+                {
+                    "@id": "zipfile/"
+                },
+                {
+                    "@id": ".DS_Store"
+                },
+                {
+                    "@id": "test.zip"
+                },
+                {
+                    "@id": "zipfile.zip"
+                },
+                {
+                    "@id": "test1.zip"
+                },
+                {
+                    "@id": "zip.zip"
+                },
+                {
+                    "@id": "ro-crate-matedata.json"
+                }
+            ]
+        },
+        {
+            "@id": "ro-crate-metadata.json",
+            "@type": "CreativeWork",
+            "about": {
+                "@id": "./"
+            },
+            "conformsTo": {
+                "@id": "https://w3id.org/ro/crate/1.1"
+            }
+        },
+        {
+            "@id": "zipfile/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": ".DS_Store",
+            "@type": "File"
+        },
+        {
+            "@id": "test.zip",
+            "@type": "File"
+        },
+        {
+            "@id": "zipfile.zip",
+            "@type": "File"
+        },
+        {
+            "@id": "test1.zip",
+            "@type": "File"
+        },
+        {
+            "@id": "zip.zip",
+            "@type": "File"
+        },
+        {
+            "@id": "ro-crate-matedata.json",
+            "@type": "File"
+        }
+    ]
+}
