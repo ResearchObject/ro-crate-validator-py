@@ -3,7 +3,6 @@
     "@graph": [
         {
             "@id": "./",
-            "@type": "Dataset",
             "creator": [
                 {
                     "@id": "#macklin"
@@ -21,7 +20,7 @@
                     "@id": "#heiland"
                 }
             ],
-            "datePublished": "2021-11-09T00:51:55.837325",
+            "datePublished": "2021-11-09T01:07:43.869390",
             "description": "This model simulates replication dynamics of SARS-CoV-2 (coronavirus / COVID19) in a layer of epithelium and several submodels (such as single-cell response, pyroptosis death model, tissue-damage model, lymph node model and immune response). It is being iteratively prototyped and refined with community support",
             "hasPart": [
                 {
@@ -43,7 +42,7 @@
                     "@id": "PhysiCell_V.1.6.1.zip"
                 },
                 {
-                    "@id"; "PhysiCell_V.1.7.0.zip"
+                    "@id": "PhysiCell_V.1.7.0.zip"
                 },
                 {
                     "@id": "PhysiCell_V.1.7.1.zip"
@@ -56,7 +55,7 @@
                 }
             ],
             "isBasedOn": "https://zenodo.org/record/5595136#.YYlJ9BB_phF",
-            "name"; "pc4covid19/COVID19: Version 0.5.0: draft v5 prototype"
+            "name": "pc4covid19/COVID19: Version 0.5.0: draft v5 prototype"
         },
         {
             "@id": "ro-crate-metadata.json",
@@ -106,10 +105,7 @@
         },
         {
             "@id": "README.md",
-            "@type": "File",
-            "contentSize": null,
-            "encodingFormat": "text/html; charset=utf-8",
-            "url": "https://github.com/pc4covid19/COVID19/tree/0.5.0/README.md"
+            "@type": "File"
         },
         {
             "@id": "#macklin",
