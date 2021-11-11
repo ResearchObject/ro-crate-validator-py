@@ -1,0 +1,140 @@
+{
+    "@context": "https://w3id.org/ro/crate/1.1/context",
+    "@Graph": [
+        {
+            "@ID": "./",
+            "@type": "Dataset",
+            "creator": [
+                {
+                    "@id": "#macklin"
+                },
+                {
+                    "@id": "#getz"
+                },
+                {
+                    "@id": "#saglam"
+                },
+                {
+                    "@id": "#wang"
+                },
+                {
+                    "@id": "#heiland"
+                }
+            ],
+            "datePublished": "2021-11-09T00:51:55.837325",
+            "description": "This model simulates replication dynamics of SARS-CoV-2 (coronavirus / COVID19) in a layer of epithelium and several submodels (such as single-cell response, pyroptosis death model, tissue-damage model, lymph node model and immune response). It is being iteratively prototyped and refined with community support",
+            "hasPart": [
+                {
+                    "@id": "changes.md"
+                },
+                {
+                    "@id": "design/"
+                },
+                {
+                    "@id": "LICENSE"
+                },
+                {
+                    "@id": "math/"
+                },
+                {
+                    "@id": "PhysiCell/"
+                },
+                {
+                    "@id": "PhysiCell_V.1.6.1.zip"
+                },
+                {
+                    "@id": "PhysiCell_V.1.7.0.zip"
+                },
+                {
+                    "@id": "PhysiCell_V.1.7.1.zip"
+                },
+                {
+                    "@id": "PhysiCell_V.1.9.0.zip"
+                },
+                {
+                    "@id": "README.md"
+                }
+            ],
+            "isBasedOn": "https://zenodo.org/record/5595136#.YYlJ9BB_phF",
+            "name": "pc4covid19/COVID19: Version 0.5.0: draft v5 prototype"
+        },
+        {
+            "@id": "ro-crate-metadata.json",
+            "@type": "CreativeWork",
+            "about": {
+                "@id": "./"
+            },
+            "conformsTo": {
+                "@id": "https://w3id.org/ro/crate/1.1"
+            }
+        },
+        {
+            "@id": "changes.md",
+            "@type": "File"
+        },
+        {
+            "@id": "design/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "LICENSE",
+            "@type": "File"
+        },
+        {
+            "@id": "math/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "PhysiCell/",
+            "@type": "Dataset"
+        },
+        {
+            "@id": "PhysiCell_V.1.6.1.zip",
+            "@type": "File"
+        },
+        {
+            "@id": "PhysiCell_V.1.7.0.zip",
+            "@type": "File"
+        },
+        {
+            "@id": "PhysiCell_V.1.7.1.zip",
+            "@type": "File"
+        },
+        {
+            "@id": "PhysiCell_V.1.9.0.zip",
+            "@type": "File"
+        },
+        {
+            "@id": "README.md",
+            "@type": "File",
+            "contentSize": null,
+            "encodingFormat": "text/html; charset=utf-8",
+            "url": "https://github.com/pc4covid19/COVID19/tree/0.5.0/README.md"
+        },
+        {
+            "@id": "#macklin",
+            "@type": "Person",
+            "name": "Paul Macklin"
+        },
+        {
+            "@id": "#getz",
+            "@type": "Person",
+            "name": "Michael-Getz"
+        },
+        {
+            "@id": "#saglam",
+            "@type": "Person",
+            "name": "Ali Sinan Saglam"
+        },
+        {
+            "@id": "#wang",
+            "@type": "Person",
+            "name": "Yafei Wang"
+        },
+        {
+            "@id": "#heiland",
+            "@type": "Person",
+            "name": "Randy Heiland"
+        }
+    ]
+}
