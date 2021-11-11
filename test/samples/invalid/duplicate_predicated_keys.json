@@ -26,7 +26,7 @@
                     "@id": "#macklin"
                 }
 
-            ]
+            ],
             "datePublished": "2021-11-09T00:51:55.837325",
             "description": "This model simulates replication dynamics of SARS-CoV-2 (coronavirus / COVID19) in a layer of epithelium and several submodels (such as single-cell response, pyroptosis death model, tissue-damage model, lymph node model and immune response). It is being iteratively prototyped and refined with community support",
             "hasPart": [
