@@ -2,9 +2,9 @@
     "@context": "https://w3id.org/ro/crate/1.1/context",
     "@graph": [
         {
-            "id": "./",
-            "@type": "Dataset",
-            "": [
+            "@id": "./",
+            "@type": "1111111",
+            "creator": [
                 {
                     "@id": "#macklin"
                 },
@@ -21,7 +21,7 @@
                     "@id": "#heiland"
                 }
             ],
-            "@id": "2021-11-09T01:07:43.869390",
+            "datePublished": "2021-11-09T01:07:43.869390",
             "description": "This model simulates replication dynamics of SARS-CoV-2 (coronavirus / COVID19) in a layer of epithelium and several submodels (such as single-cell response, pyroptosis death model, tissue-damage model, lymph node model and immune response). It is being iteratively prototyped and refined with community support",
             "hasPart": [
                 {

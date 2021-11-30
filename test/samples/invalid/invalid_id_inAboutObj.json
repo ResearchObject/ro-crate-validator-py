@@ -61,6 +61,9 @@
         {
             "@id": "ro-crate-metadata.json",
             "@type": "CreativeWork",
+            "about": {
+                "@id": "https://schema.org"
+            },
             "conformsTo": {
                 "@id": "https://w3id.org/ro/crate/1.1"
             }
@@ -134,4 +137,4 @@
             "name": "Randy Heiland"
         }
     ]
-}
+} 
