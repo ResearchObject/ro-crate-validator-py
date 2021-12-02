@@ -5,7 +5,7 @@
 **_Test 01 brackets_**
 
 **_Purpose:_** Json objects literals are surrounded by curly braces { }.
-**_Input example:_** https://github.com/ResearchObject/ro-crate-validator-py/blob/main/test/samples/invalid/wrong_array_braket.json
+**_Input example:_** https://github.com/ResearchObject/ro-crate-validator-py/blob/main/test/samples/invalid/wrong_array_bracket.json
 
 **_Test 02 separators_**
 
@@ -40,7 +40,7 @@
 **_Test 03 term started with @ character_**
 
 **_Purpose:_**  a term should not start with an @ character followed by one or more ALPHA characters to avoid forward-compatibility.
-**_Input example:_**
+**_Input example:_** https://github.com/ResearchObject/ro-crate-validator-py/blob/main/test/samples/invalid/term_start_with@.json
 
 ## 4. Invalid Json-ld
 
