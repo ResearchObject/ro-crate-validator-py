@@ -1,0 +1,8 @@
+File existence
+File size
+Metadata file existence
+Json check
+Json-ld check
+RDF triples
+Self descriptor check
+Direct property check
