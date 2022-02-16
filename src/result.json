@@ -1,0 +1,33 @@
+{
+    "File existence": [
+        true
+    ],
+    "File size": [
+        true
+    ],
+    "Metadata file existence": [
+        true
+    ],
+    "Json check": [
+        true
+    ],
+    "Json-ld check": [
+        true
+    ],
+    "Self descriptor check": [
+        true
+    ],
+    "Direct property check": [
+        true
+    ],
+    "Referencing check": [
+        false,
+        "The referencing math/ is wrong"
+    ],
+    "Encoding check": [
+        true
+    ],
+    "Scripts and workflow check": [
+        true
+    ]
+}

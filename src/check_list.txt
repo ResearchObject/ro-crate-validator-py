@@ -6,3 +6,9 @@ Json-ld check
 RDF triples
 Self descriptor check
 Direct property check
+Referencing check
+Encoding check
+Scripts and workflow check
+
+
+
