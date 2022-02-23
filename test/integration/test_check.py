@@ -8,82 +8,105 @@ from pathlib import Path
 # parent, root = file.parent, file.parents[1]
 # sys.path.append(os.path.join(str(root), "src"))
 import src.semanticCheck as semanticCheck
-import test.integration.module as module
+
 
 testing_path = "test/samples/invalid"
 extension = ""
+  
 
-# try:
-#     import semanticCheck
-# except ModuleNotFoundError:
-#     print("nnno")
+class TestGroup:
 
-# try:
-#     import teet
-#     teet.q()
-# except ModuleNotFoundError:
-#     print("no")
-# def __init__():
-    
+    NAME = None
+    error_message = None
+    bool = False
 
-def test_descriptor():
-    output = semanticCheck.self_descriptor_check(testing_path, extension)
-    if len(output) == 2:
-        assert output[1] == True
-    else:
-        assert output[2] == False
+    @pytest.mark.parametrize("NAME, error_message, bool", [("Self descriptor check", [], True)])
+    def test_descriptor(self, NAME, error_message, bool):
+        output = semanticCheck.self_descriptor_check(testing_path, extension)
+        self.NAME = output[0]
+        self.error_message = output[1]
+        self.bool = output[2]
 
-def test_direct_property():
-    output = semanticCheck.direct_property_check(testing_path, extension)
-    if len(output) == 2:
-        assert output[1] == True
-    else:
-        assert output[2] == False
+        assert self.NAME == NAME
+        assert self.error_message == error_message
+        assert self.bool == bool
 
-def test_referencing():
-    output = semanticCheck.referencing_check(testing_path, extension)
-    if len(output) == 2:
-        assert output[1] == True
-    else:
-        assert output[2] == False
+    @pytest.mark.parametrize("NAME, error_message, bool", [("Direct property check", 'Directory property of RO-Crate is wrong', False)])
+    def test_direct_property(self, NAME, error_message, bool):
+        output = semanticCheck.direct_property_check(testing_path, extension)
+        self.NAME = output[0]
+        self.error_message = output[1]
+        self.bool = output[2]
 
-def test_encoding():
-    output = semanticCheck.encoding_check(testing_path, extension)
-    if len(output) == 2:
-        assert output[1] == True
-    else:
-        assert output[2] == False
+        assert self.NAME == NAME
+        assert self.error_message == error_message
+        assert self.bool == bool
 
-def test_workflow():
-    output = semanticCheck.scripts_and_workflow_check(testing_path, extension)
-    if len(output) == 2:
-        output = output[1]
-    else:
-        output = output[2]
-    
-    assert isinstance(output, str) or isinstance(output, bool)
+    @pytest.mark.parametrize("NAME, error_message, bool", [("Referencing check", 'The referencing math/ is wrong', False)])
+    def test_referencing(self, NAME, error_message, bool):
+        output = semanticCheck.referencing_check(testing_path, extension)
+        self.NAME = output[0]
+        self.error_message = output[1]
+        self.bool = output[2]
 
-    
-class TestClass:
+        assert self.NAME == NAME
+        assert self.error_message == error_message
+        assert self.bool == bool
 
-    # def test_function_1(self):
-    #     # Override the Python built-in input method 
-    #     semanticCheck.input = referencing_check(testing_path, extension)
-    #     # Call the function you would like to test (which uses input)
-    #     output = semanticCheck.referencing_check(testing_path, extension)  
-    #     assert output == 'aaa'
+    @pytest.mark.parametrize("NAME, error_message, bool", [("Encoding check", [], True)])
+    def test_encoding(self, NAME, error_message, bool):
+        output = semanticCheck.encoding_check(testing_path, extension)
+        self.NAME = output[0]
+        self.error_message = output[1]
+        self.bool = output[2]
 
-    def test_function_2(self):
-        module.input = lambda: 'b1b'
-        assert module.input == "1"
-        output = module.function2()  
-        assert output == 'bbb'       
+        assert self.NAME == NAME
+        assert self.error_message == error_message
+        assert self.bool == bool
 
-    def teardown_method(self, method):
-        # This method is being called after each test case, and it will revert input back to original function
-        module.input = input
+    @pytest.mark.parametrize("NAME, error_message, bool", [("Scripts and workflow check", [], True)])
+    def test_workflow(self, NAME, error_message, bool):
+        output = semanticCheck.scripts_and_workflow_check(testing_path, extension)
+        self.NAME = output[0]
+        self.error_message = output[1]
+        self.bool = output[2]
 
+        assert self.NAME == NAME
+        assert self.error_message == error_message
+        assert self.bool == bool
 
+    @pytest.mark.parametrize("NAME, error_message, bool", [("Web-based data entity check", [], True)])
+    def test_webbased_entity(self, NAME, error_message, bool):
+        output = semanticCheck.webbased_entity_check(testing_path, extension)
+        self.NAME = output[0]
+        self.error_message = output[1]
+        self.bool = output[2]
+
+        assert self.NAME == NAME
+        assert self.error_message == error_message
+        assert self.bool == bool
+
+    @pytest.mark.parametrize("NAME, error_message, bool", [("Person entity check", [], True)])
+    def test_person_entity(self, NAME, error_message, bool):
+        output = semanticCheck.person_entity_check(testing_path, extension)
+        self.NAME = output[0]
+        self.error_message = output[1]
+        self.bool = output[2]
+
+        assert self.NAME == NAME
+        assert self.error_message == error_message
+        assert self.bool == bool
+
+    @pytest.mark.parametrize("NAME, error_message, bool", [("Organization check", [], True)])
+    def test_organization_entity(self, NAME, error_message, bool):
+        output = semanticCheck.organization_check(testing_path, extension)
+        self.NAME = output[0]
+        self.error_message = output[1]
+        self.bool = output[2]
+
+        assert self.NAME == NAME
+        assert self.error_message == error_message
+        assert self.bool == bool
 
 
 
