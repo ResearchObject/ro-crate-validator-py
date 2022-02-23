@@ -8,6 +8,9 @@ Self descriptor check
 Direct property check
 Referencing check
 Encoding check
+Web-based data entity check
+Person entity check
+Organization check
 Scripts and workflow check
 
 

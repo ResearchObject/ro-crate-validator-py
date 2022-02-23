@@ -1,6 +1,10 @@
 .avi
 .cwl
 .knime
-.kne
-.knie
-.ke
+.ga
+.wsp
+.yxmd
+.wfx
+.ps1
+.nwf
+.wkfx

@@ -18,16 +18,28 @@
         true
     ],
     "Direct property check": [
-        true
+        false,
+        "Directory property of RO-Crate is wrong"
     ],
     "Referencing check": [
-        false,
-        "The referencing math/ is wrong"
+        true
     ],
     "Encoding check": [
         true
     ],
-    "Scripts and workflow check": [
+    "Web-based data entity check": [
         true
+    ],
+    "Person entity check": [
+        false,
+        "Person entity https://orcid.org/0000-0002-8367-6908 is incorrect"
+    ],
+    "Organization check": [
+        false,
+        "Organization contextual entity https://ror.org/03f0f6041 is incorrect"
+    ],
+    "Scripts and workflow check": [
+        false,
+        " ComputationalWorkflow has to be one of value in @type for workflow file workflow/retropath.knime"
     ]
 }
