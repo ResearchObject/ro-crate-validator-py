@@ -14,7 +14,7 @@
     "Json-ld check": [
         true
     ],
-    "Self descriptor check": [
+    "File descriptor check": [
         true
     ],
     "Direct property check": [
@@ -32,14 +32,34 @@
     ],
     "Person entity check": [
         false,
-        "Person entity https://orcid.org/0000-0002-8367-6908 is incorrect"
+        "The value of @type of https://orcid.org/0000-0001-6121-5409 is incorrect"
     ],
-    "Organization check": [
+    "Organization entity check": [
         false,
         "Organization contextual entity https://ror.org/03f0f6041 is incorrect"
     ],
+    "Contact information check": [
+        true
+    ],
+    "Citation property check": [
+        true
+    ],
+    "Publisher property check": [
+        true
+    ],
+    "Funder property check": [
+        true
+    ],
+    "Licensing property check": [
+        true
+    ],
+    "Places property check": [
+        true
+    ],
+    "Time property check": [
+        true
+    ],
     "Scripts and workflow check": [
-        false,
-        " ComputationalWorkflow has to be one of value in @type for workflow file workflow/retropath.knime"
+        true
     ]
 }

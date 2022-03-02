@@ -4,155 +4,142 @@ import os
 import sys
 from pathlib import Path
 
-# file = Path(os.path.abspath('')).resolve()
-# parent, root = file.parent, file.parents[1]
-# sys.path.append(os.path.join(str(root), "src"))
+import src.utils as utils
 import src.semanticCheck as semanticCheck
 import src.syntaxCheck as syntaxCheck
 
 
 testing_path = "test/samples/invalid"
 extension = ""
-  
 
-class TestGroup:
+class TestBase:
 
-    NAME = None
-    error_message = None
-    bool = False
+    @pytest.fixture
+    def existence_example1(self):
+        return utils.Result(NAME = "File existence")
 
-    @pytest.mark.parametrize("NAME, error_message, bool", [("File existence", [], True)])
-    def test_file_existece(self, NAME, error_message, bool):
-        output = syntaxCheck.existence_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
+    @pytest.fixture
+    def fileSize_example1(self):
+        return utils.Result(NAME = "File size") 
 
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
+    @pytest.fixture
+    def metadata_example1(self):
+        return utils.Result(NAME = "Metadata file existence")
 
-    @pytest.mark.parametrize("NAME, error_message, bool", [("File size", [], True)])
-    def test_file_size(self, NAME, error_message, bool):
-        output = syntaxCheck.file_size_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
+    @pytest.fixture
+    def json_example1(self):
+        return utils.Result(NAME = "Json check")
 
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
+    @pytest.fixture
+    def descriptor_example1(self):
+        return utils.Result(NAME = "File descriptor check")
 
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Metadata file existence", [], True)])
-    def test_metadataFile(self, NAME, error_message, bool):
-        output = syntaxCheck.metadata_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
+    @pytest.fixture
+    def directProperty_example1(self):
+        return utils.Result(NAME = "Direct property check", code = -1, message = "Directory property of RO-Crate is wrong")
 
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
+    @pytest.fixture
+    def referencing_example1(self):
+        return utils.Result(NAME = "Referencing check", code = -1, message = "The referencing math/ is wrong")
 
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Json check", [], True)])
-    def test_json(self, NAME, error_message, bool):
-        output = syntaxCheck.string_value_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
+    @pytest.fixture
+    def encoding_example1(self):
+        return utils.Result(NAME = "encoding check")
 
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
+    @pytest.fixture
+    def webbasedEntity_example1(self):
+        return utils.Result(NAME = "Web-based data entity check")
 
+    @pytest.fixture
+    def personEntity_example1(self):
+        return utils.Result(NAME = "Person entity check")
 
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Self descriptor check", [], True)])
-    def test_descriptor(self, NAME, error_message, bool):
-        output = semanticCheck.self_descriptor_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
+    @pytest.fixture
+    def organizationEntity_example1(self):
+        return utils.Result(NAME = "Organization entity check")
 
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
-
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Direct property check", 'Directory property of RO-Crate is wrong', False)])
-    def test_direct_property(self, NAME, error_message, bool):
-        output = semanticCheck.direct_property_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
-
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
-
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Referencing check", 'The referencing math/ is wrong', False)])
-    def test_referencing(self, NAME, error_message, bool):
-        output = semanticCheck.referencing_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
-
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
-
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Encoding check", [], True)])
-    def test_encoding(self, NAME, error_message, bool):
-        output = semanticCheck.encoding_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
-
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
-
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Scripts and workflow check", [], True)])
-    def test_workflow(self, NAME, error_message, bool):
-        output = semanticCheck.scripts_and_workflow_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
-
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
-
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Web-based data entity check", [], True)])
-    def test_webbased_entity(self, NAME, error_message, bool):
-        output = semanticCheck.webbased_entity_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
-
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
-
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Person entity check", [], True)])
-    def test_person_entity(self, NAME, error_message, bool):
-        output = semanticCheck.person_entity_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
-
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
-
-    @pytest.mark.parametrize("NAME, error_message, bool", [("Organization check", [], True)])
-    def test_organization_entity(self, NAME, error_message, bool):
-        output = semanticCheck.organization_check(testing_path, extension)
-        self.NAME = output[0]
-        self.error_message = output[1]
-        self.bool = output[2]
-
-        assert self.NAME == NAME
-        assert self.error_message == error_message
-        assert self.bool == bool
+    @pytest.fixture
+    def workflow_example1(self):
+        return utils.Result(NAME = "Scripts and workflow check")
 
 
+class TestGroup(TestBase):
+
+    def check_result(self, result, exp_result):
+        if result.NAME == exp_result.NAME and result.code == exp_result.code and result.message == exp_result.message:
+            return True
+        else:
+            return False
+   
+    def test_file_existence(self, existence_example1):
+        result = syntaxCheck.existence_check(testing_path, extension)
+        outcome = check_result(result, existence_example1)
+
+        assert outcome == True
+
+    def test_file_size(self, fileSize_example1):
+        result = syntaxCheck.file_size_check(testing_path, extension)
+        outcome = check_result(result, fileSize_example1)
+
+        assert outcome == True
+
+    def test_metadataFile(self, metadata_example1):
+        result = syntaxCheck.metadata_check(testing_path, extension)
+        outcome = check_result(result, metadata_example1)
+
+        assert outcome == True
+
+    def test_json(self, json_example1):
+        result =syntaxCheck.string_value_check(testing_path, extension)
+        outcome = check_result(result, json_example1)
+
+        assert outcome == True
+
+    def test_descriptor(self, descriptor_example1):
+        result = semanticCheck.file_descriptor_check(testing_path, extension)
+        outcome = check_result(result, descriptor_example1)
+
+        assert outcome == True
+
+    def test_direct_property(self, directProperty_example1):
+        result = semanticCheck.direct_property_check(testing_path, extension)
+        outcome = check_result(result, directProperty_example1)
+
+        assert outcome == True
+
+    def test_referencing(self, referencing_example1):
+        result = semanticCheck.referencing_check(testing_path, extension)
+        outcome = check_result(result, referencing_example1)
+
+        assert outcome == True
+
+    def test_encoding(self, encoding_example1):
+        result = semanticCheck.encoding_check(testing_path, extension)
+        outcome = check_result(result, encoding_example1)
+
+        assert outcome == True
+
+    def test_webbased_entity(self, webbasedEntity_example1):
+        result = semanticCheck.webbased_entity_check(testing_path, extension)
+        outcome = check_result(result, webbasedEntity_example1)
+
+        assert outcome == True
+
+    def test_person_entity(self, personEntity_example1):
+        result = semanticCheck.person_entity_check(testing_path, extension)
+        outcome  = check_result(result, personEntity_example1)
+
+        assert outcome == True
+
+    def test_organization_entity(self, organizationEntity_example1):
+        result = semanticCheck.organization_check(testing_path, extension)
+        outcome  = check_result(result, organizationEntity_example1)
+
+        assert outcome == True
+
+    def test_workflow(self, workflow_example1):
+        result = semanticCheck.scripts_and_workflow_check(testing_path, extension)
+        outcome  = check_result(result, workflow_example1)
+
+        assert outcome == True
 
