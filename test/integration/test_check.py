@@ -59,8 +59,44 @@ class TestBase:
         return utils.Result(NAME = "Organization entity check")
 
     @pytest.fixture
+    def contactInfo_example1(self):
+        return utils.Result(NAME = "Contact information check")
+
+    @pytest.fixture
+    def citation_example1(self):
+        return utils.Result(NAME = "Citation property check")
+
+    @pytest.fixture
+    def publisher_example1(self):
+        return utils.Result(NAME = "Publisher property check")
+
+    @pytest.fixture
+    def funder_example1(self):
+        return utils.Result(NAME = "Funder property check")
+
+    @pytest.fixture
+    def licensing_example1(self):
+        return utils.Result(NAME = "Licensing property check")
+
+    @pytest.fixture
+    def places_example1(self):
+        return utils.Result(NAME = "Places property check")
+
+    @pytest.fixture
+    def time_example1(self):
+        return utils.Result(NAME = "Time property check")
+
+    @pytest.fixture
+    def thumbnails_example1(self):
+        return utils.Result(NAME = "Thumbnails property check")
+
+    @pytest.fixture
     def workflow_example1(self):
         return utils.Result(NAME = "Scripts and workflow check")
+
+
+
+
 
 
 class TestGroup(TestBase):
@@ -134,6 +170,48 @@ class TestGroup(TestBase):
     def test_organization_entity(self, organizationEntity_example1):
         result = semanticCheck.organization_check(testing_path, extension)
         outcome  = check_result(result, organizationEntity_example1)
+
+        assert outcome == True
+
+    def test_contactInfo_entity(self, contactInfo_example1):
+        result = semanticCheck.contact_info_check(testing_path, extension)
+        outcome  = check_result(result, contactInfo_example1)
+
+        assert outcome == True
+
+    def test_citation_entity(self, citation_example1):
+        result = semanticCheck.citation_check(testing_path, extension)
+        outcome  = check_result(result, citation_example1)
+
+        assert outcome == True
+
+    def test_publisher_entity(self, publisher_example1):
+        result = semanticCheck.publisher_check(testing_path, extension)
+        outcome  = check_result(result, publisher_example1)
+
+        assert outcome == True
+
+    def test_funder_entity(self, funder_example1):
+        result = semanticCheck.funder_check(testing_path, extension)
+        outcome  = check_result(result, funder_example1)
+
+        assert outcome == True
+
+    def test_licensing_entity(self, licensing_example1):
+        result = semanticCheck.licensing_check(testing_path, extension)
+        outcome  = check_result(result, licensing_example1)
+
+        assert outcome == True
+
+    def test_places_entity(self, places_example1):
+        result = semanticCheck.places_check(testing_path, extension)
+        outcome  = check_result(result, places_example1)
+
+        assert outcome == True
+
+    def test_time_entity(self, time_example1):
+        result = semanticCheck.time_check(testing_path, extension)
+        outcome  = check_result(result, time_example1)
 
         assert outcome == True
 
