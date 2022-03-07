@@ -45,7 +45,8 @@
         true
     ],
     "Publisher property check": [
-        true
+        false,
+        "Invalid Type Value at https://ror.org/03f0f6041"
     ],
     "Funder property check": [
         true

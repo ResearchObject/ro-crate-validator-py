@@ -9,6 +9,17 @@ from datetime import datetime
 import pytest
 from utils import Result as Result
 
+
+correct_value = {
+	"contactPoint":"ContactPoint",
+	"citation":["ScholarlyArticle", "CreativeWork"], 
+	"publisher":["Organization", "Person"], 
+	"author": ["Organization", "Person"], 
+	"contactPoint": "ContactPoint"
+}
+
+
+
 def entity_type(type, exp_type):
     return True if type == exp_type else False
 
@@ -364,17 +375,47 @@ def organization_check(tar_file, extension):
     return Result(NAME)
 
 
-def upd_contactInfoType_rlt(metadata, parent_entity, contact_result, error_message):
-    publisher_entity = metadata[parent_entity[0]]
-    contact_point = utils.get_norm_value(publisher_entity, "contactPoint")
-    if contact_point != []:
-        contactPoint_entity = metadata[contact_point[0]]
-        type = utils.get_norm_value(contactPoint_entity, "@type")
-        if type[0] == "ContactPoint":
-            contact_result[contact_point[0]] = True
-        else:
-            contact_result[contact_point[0]] = [False, error_message["TypeError"].format(contact_point)]
-            
+# def upd_contactInfoType_rlt(metadata, parent_entity, contact_result, error_message):
+#     publisher_entity = metadata[parent_entity[0]]
+#     contact_point = utils.get_norm_value(publisher_entity, "contactPoint")
+#     if contact_point != []:
+#         contactPoint_entity = metadata[contact_point[0]]
+#         type = utils.get_norm_value(contactPoint_entity, "@type")
+#         if type[0] == "ContactPoint":
+#             contact_result[contact_point[0]] = True
+#         else:
+#             contact_result[contact_point[0]] = [False, error_message["TypeError"].format(contact_point)]
+
+
+def get_entity(item, entity, metadata, result, error_message, flag = False):
+	entity_property = utils.get_norm_value(entity, item)
+	if entity_property != []:
+		for entityPro in entity_property:
+			if (item == "publisher" or item == "author") and flag:
+				get_entity("contactPoint", metadata[entityPro], metadata, result, error_message)
+			elif utils.is_url(entityPro):
+				upd_result(item, entityPro, metadata, result, error_message)
+			else:
+				if item == "citation" and not utils.is_url(entityPro):
+					result[entity] = [False, error_message["IDError"].format(entity)]
+				upd_result(item, entityPro, metadata, result, error_message)
+
+def upd_result(item, entity_property, metadata, result, error_message):
+	referencing_entity = metadata[entity_property]
+	type = utils.get_norm_value(referencing_entity, "@type")
+	try:
+		type = type[0]
+	except IndexError:
+		result[entity_property] = [False, error_message["TypeError"].format(entity_property)]
+
+	# val = correct_value[item].replace("@", "") if "@" in correct_value[entity_property] else correct_value[entity_property]
+
+	if type == correct_value[item] or type in correct_value[item]:
+		result[entity_property] = True
+	else:
+		result[entity_property] = [False, error_message["TypeError"].format(entity_property)]
+
+
 def contact_info_check(tar_file, extension):
     
     """
@@ -394,14 +435,17 @@ def contact_info_check(tar_file, extension):
     context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
     for entity in metadata.values():
         if utils.get_norm_value(entity, "@type")[0] == "Dataset":
-            author = utils.get_norm_value(entity, "author")
-            publisher = utils.get_norm_value(entity, "publisher")
+        	### The flag attributes is to find the additional information which is referencing entity of contactPoint 
+        	get_entity("author", entity, metadata, contact_result, error_message, True)
+        	get_entity("publisher", entity, metadata, contact_result, error_message, True)
+            # author = utils.get_norm_value(entity, "author")
+            # publisher = utils.get_norm_value(entity, "publisher")
             
-            ### check contact information property of both author and publisher
-            if author != []:
-                upd_contactInfoType_rlt(metadata, author, contact_result, error_message)
-            if publisher != []:
-                upd_contactInfoType_rlt(metadata, publisher, contact_result, error_message)
+            # ### check contact information property of both author and publisher
+            # if author != []:
+            #     upd_contactInfoType_rlt(metadata, author, contact_result, error_message)
+            # if publisher != []:
+            #     upd_contactInfoType_rlt(metadata, publisher, contact_result, error_message)
     
     for values in contact_result.values():
         if isinstance(values, list):
@@ -453,7 +497,7 @@ def citation_check(tar_file, extension):
     for entity in metadata.values():
         type = utils.get_norm_value(entity, "@type")[0]
         if type == "Dataset" or type == "File":
-            get_citation(entity, metadata, citation_result, error_message)
+            get_entity("citation", entity, metadata, citation_result, error_message)
 
     for values in citation_result.values():
         if isinstance(values, list):
@@ -502,9 +546,10 @@ def publisher_check(tar_file, extension):
     
     context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
     for entity in metadata.values():
-        publisher = utils.get_norm_value(entity, "publisher")          
-        ### publisher SHOULD be an Organization though it MAY be a Person.
-        get_publisher(entity, metadata, publisher_result, error_message)
+    	get_entity("publisher", entity, metadata, publisher_result, error_message)
+        # publisher = utils.get_norm_value(entity, "publisher")          
+        # ### publisher SHOULD be an Organization though it MAY be a Person.
+        # get_publisher(entity, metadata, publisher_result, error_message)
     
     for values in publisher_result.values():
         if isinstance(values, list):
