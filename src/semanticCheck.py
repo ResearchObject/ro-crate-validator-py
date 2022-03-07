@@ -15,7 +15,8 @@ correct_value = {
 	"citation":["ScholarlyArticle", "CreativeWork"], 
 	"publisher":["Organization", "Person"], 
 	"author": ["Organization", "Person"], 
-	"contactPoint": "ContactPoint"
+	"contactPoint": "ContactPoint", 
+	"funder": ["Organization", "Person"]
 }
 
 
