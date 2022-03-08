@@ -36,10 +36,11 @@
     ],
     "Organization entity check": [
         false,
-        "Organization contextual entity https://ror.org/03f0f6041 is incorrect"
+        "Organization contextual entity publisher is incorrect"
     ],
     "Contact information check": [
-        true
+        false,
+        "Invlaid Type Value at https://ror.org/03f0f6041"
     ],
     "Citation property check": [
         true

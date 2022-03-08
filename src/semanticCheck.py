@@ -15,10 +15,9 @@ correct_value = {
 	"citation":["ScholarlyArticle", "CreativeWork"], 
 	"publisher":["Organization", "Person"], 
 	"author": ["Organization", "Person"], 
-	"contactPoint": "ContactPoint", 
-	"funder": ["Organization", "Person"]
+	"funder": ["Organization", "Person"], 
+	"copyrightHolder":["Organization", "Person"]
 }
-
 
 
 def entity_type(type, exp_type):
@@ -331,62 +330,6 @@ def person_entity_check(tar_file, extension):
     
     return Result(NAME)
 
-def publisher_affiliation_correctness(entity, ck_item, metadata, organization_result, error_message):
-    item = utils.get_norm_value(entity, "%s" %ck_item)
-    if item != []:
-        item = item[0]
-        if utils.get_norm_value(metadata[item], "@type") == ["Organization"]:
-            organization_result[utils.get_norm_value(entity, "@id")[0]] = True
-        else:
-            organization_result[utils.get_norm_value(entity, "@id")[0]] = [False, error_message["OrganizationError"].format(item)]
-        
-def organization_check(tar_file, extension):
-    
-    """
-    An Organization SHOULD be the value for the publisher property of a Dataset or ScholarlyArticle 
-    or affiliation property of a Person.
-    Please see more information and examples at RO-Crate Website
-    <https://www.researchobject.org/ro-crate/1.1/contextual-entities.html#organizations-as-values>
-    """
-    
-    NAME = "Organization entity check"
-    error_message = {
-        "OrganizationError": "Organization contextual entity {} is incorrect"
-    }
-    
-    ### dictionary to store the checking result
-    organization_result = {}
-    
-    context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
-    for entity in metadata.values():
-        type = utils.get_norm_value(entity, "@type")[0]
-        
-        ### check the value of publisher for each dataset and scholarly article entity
-        if type =="Dataset" or type == "ScholarlyArticle":
-            publisher_affiliation_correctness(entity, "publisher", metadata, organization_result, error_message)
-            
-        ### check the vlaue of affiliation for each file entity
-        elif type == "File":
-            publisher_affiliation_correctness(entity, "affiliation", metadata, organization_result, error_message)
-    
-    for values in organization_result.values():
-        if isinstance(values, list):
-            return Result(NAME, code = -1, message = values[1])
-      
-    return Result(NAME)
-
-
-# def upd_contactInfoType_rlt(metadata, parent_entity, contact_result, error_message):
-#     publisher_entity = metadata[parent_entity[0]]
-#     contact_point = utils.get_norm_value(publisher_entity, "contactPoint")
-#     if contact_point != []:
-#         contactPoint_entity = metadata[contact_point[0]]
-#         type = utils.get_norm_value(contactPoint_entity, "@type")
-#         if type[0] == "ContactPoint":
-#             contact_result[contact_point[0]] = True
-#         else:
-#             contact_result[contact_point[0]] = [False, error_message["TypeError"].format(contact_point)]
-
 def url_check(item, entityProp, metadata, result, error_message):
 	if utils.is_url(entityProp):
 		upd_result(item, entityProp, metadata, result, error_message)
@@ -436,6 +379,53 @@ def upd_result(item, entity_property, metadata, result, error_message, further_c
 		result[entity_property] = [False, error_message["ReferencingError"].format(entity_property)]
 
 
+def publisher_affiliation_correctness(item, entity, metadata, organization_result, error_message):
+    entity_property = utils.get_norm_value(entity, item)
+    if entity_property != []:
+        entity_property = entity_property[0]
+        if utils.get_norm_value(metadata[entity_property], "@type") == ["Organization"]:
+            organization_result[utils.get_norm_value(entity, "@id")[0]] = True
+        else:
+            organization_result[utils.get_norm_value(entity, "@id")[0]] = [False, error_message["OrganizationError"].format(item)]
+        
+def organization_check(tar_file, extension):
+    
+    """
+    An Organization SHOULD be the value for the publisher property of a Dataset or ScholarlyArticle 
+    or affiliation property of a Person.
+    Please see more information and examples at RO-Crate Website
+    <https://www.researchobject.org/ro-crate/1.1/contextual-entities.html#organizations-as-values>
+    """
+    
+    NAME = "Organization entity check"
+    error_message = {
+        "OrganizationError": "Organization contextual entity {} is incorrect"
+    }
+    
+    ### dictionary to store the checking result
+    organization_result = {}
+    
+    context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
+    for entity in metadata.values():
+        type = utils.get_norm_value(entity, "@type")[0]
+        
+        ### check the value of publisher for each dataset and scholarly article entity
+        if type =="Dataset" or type == "ScholarlyArticle":
+        	# get_entity("publisher", entity, metadata, organization_result, error_message)
+            publisher_affiliation_correctness("publisher", entity, metadata, organization_result, error_message)
+            
+        ### check the vlaue of affiliation for each file entity
+        elif type == "File":
+        	# get_entity("affiliation", entity, metadata, organization_result, error_message)
+            publisher_affiliation_correctness("affiliation", entity, metadata, organization_result, error_message)
+    
+    for values in organization_result.values():
+        if isinstance(values, list):
+            return Result(NAME, code = -1, message = values[1])
+      
+    return Result(NAME)
+
+
 def contact_info_check(tar_file, extension):
     
     """
@@ -458,44 +448,13 @@ def contact_info_check(tar_file, extension):
         	### The flag attributes is to find the additional information which is referencing entity of contactPoint 
         	get_entity("author", entity, metadata, contact_result, error_message, True)
         	get_entity("publisher", entity, metadata, contact_result, error_message, True)
-            # author = utils.get_norm_value(entity, "author")
-            # publisher = utils.get_norm_value(entity, "publisher")
-            
-            # ### check contact information property of both author and publisher
-            # if author != []:
-            #     upd_contactInfoType_rlt(metadata, author, contact_result, error_message)
-            # if publisher != []:
-            #     upd_contactInfoType_rlt(metadata, publisher, contact_result, error_message)
-    
+
     for values in contact_result.values():
         if isinstance(values, list):
             return Result(NAME, code = -1, message = values[1])
     
     return Result(NAME)
 
-
-def upd_citationRlt(citation, metadata, citation_result, error_message):
-    if utils.is_url(citation):
-        citation_entity = metadata[citation[0]]
-        type = utils.get_norm_value(citation_entity, "@type")
-        try:
-            type = type[0]
-        except IndexError:
-            citation_result[citation[0]] = [False, "No Type Provided"]
-        if type == "ScholarlyArticle" or type == "CreativeWork":
-            citation_result[citation[0]] = True
-        else:
-            citation_result[citation[0]] = [False, error_message["TypeError"].format(citation)]
-    else:
-        citation_result[citation[0]] = [False, error_message["IDError"].format(citation)]
-def get_citation(entity, metadata, citation_result, error_message):
-    citation = utils.get_norm_value(entity, "citation")
-    try: 
-        citation = citation[0]
-        upd_citationRlt(citation, metadata, citation_result, error_message)
-    except IndexError:
-        pass
-    
 def citation_check(tar_file, extension):
     
     """
@@ -526,27 +485,6 @@ def citation_check(tar_file, extension):
     return Result(NAME)
 
 
-def upd_publisherRlt(publisher, metadata, publisher_result, error_message):
-    try:
-        publisher_entity = metadata[publisher[0]]
-        type = utils.get_norm_value(publisher_entity, "@type")
-        try:
-            type = type[0]
-        except IndexError:
-            publisher_result[publisher[0]] = [False, "NO Type Provided"]
-        if type == "Organization" or type == "Person":
-            publisher_result[publisher[0]] = True
-        else:
-            publisher_result[publisher[0]] = [False, error_message["TypeError"].format(publisher[0])]
-    except KeyError:
-        publisher_result[publisher[0]] = [False, error_message["ReferencingError"].format(publisher[0])]
-
-
-def get_publisher(entity, metadata, publisher_result, error_message):
-    publisher = utils.get_norm_value(entity, "publisher")
-    if publisher != []:
-        if utils.is_url(publisher[0]):
-            upd_publisherRlt(publisher, metadata, publisher_result, error_message)
                 
 def publisher_check(tar_file, extension):
     
@@ -577,28 +515,6 @@ def publisher_check(tar_file, extension):
     
     return Result(NAME)
 
-
-def upd_funderRlt(funders, metadata, funder_result, error_message):
-    for funder in funders:
-        try:
-            funder_entity = metadata[funder]
-            type = utils.get_norm_value(funder_entity, "@type")
-            if type[0] == "Organization" or type[0] == "Person":
-                funder_result = True
-                get_funder(funder_entity, metadata, funder_result, error_message)
-            else:
-                funder_result[funder] = [False, error_message["TypeError"].format(funder)]
-        except KeyError:
-            funder_result[funder] = [False, error_message["ReferencingError"].format(funder)]
-
-def get_funder(depth, entity, metadata, funder_result, error_message):
-    depth += 1
-    funders = utils.get_norm_value(entity, "funder")
-    if depth <= 2:
-        if funders != []:
-            upd_funderRlt(funders, metadata, funder_result, error_message)
-    else:
-        funder_result["Warning"] = "There are too many unecessary funders."
 
 def funder_check(tar_file, extension):
     """
@@ -632,17 +548,6 @@ def funder_check(tar_file, extension):
     return Result(NAME)
 
 
-def upd_copyrightRlt(copyright, metadata, licensing_result, error_message):
-    try:
-        copyright_entity = metadata[copyright[0]]
-    except KeyError:
-        licensing_result[copyright[0]] = [False, error_message["ReferencingError"]]
-    type = utils.get_norm_value(metadata[copyright[0]], "@type")
-    if type == "Person" or type == "Organization":
-        licensing_result[copyright[0]] = True
-    else:
-        licensing_result[copyright[0]] = [False, error_message["TypeError"].format(copyright[0])]
-
 def upd_licenseRlt(entity, license, metadata, licensing_result, error_message):
     if utils.is_url(license[0]) and utils.get_norm_value(entity, "@id")[0] != "./" and utils.get_norm_value(entity, "@id"[0] != "ro-crate-metadata.json"):
         try:
@@ -650,7 +555,7 @@ def upd_licenseRlt(entity, license, metadata, licensing_result, error_message):
         except KeyError:
             licensing_result[license[0]] = [False, error_message["ReferencingError"]]
         type = utils.get_norm_value(license_entity, "@type")
-        if type == "CreativeWork":
+        if type[0] == "CreativeWork":
             licensing_result[license[0]] = True
         else:
             licensing_result[license[0]] = [False, error_message["TypeError"].format(license[0])]
@@ -677,12 +582,10 @@ def licensing_check(tar_file, extension):
     
     context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
     for entity in metadata.values():
-        copyright = utils.get_norm_value(entity, "copyrightHolder")
-        license = utils.get_norm_value(entity, "license")
-        if license != []:
-            upd_licenseRlt(entity, license, metadata, licensing_result, error_message)
-        if copyright != []:
-            upd_copyrightRlt(copyright, metadata, licensing_result, error_message)
+    	get_entity("copyrightHolder", entity, metadata, licensing_result, error_message)
+    	license = utils.get_norm_value(entity, "license")
+    	if license != []:
+    		upd_licenseRlt(entity, license, metadata, licensing_result, error_message)
     
     for values in licensing_result.values():
         if isinstance(values, list):
@@ -690,25 +593,19 @@ def licensing_check(tar_file, extension):
         
     return Result(NAME)
 
-def geo_correctness(entity, metadata, geo_result, error_message):
-    geo = utils.get_norm_value(entity, "geo")
-    if geo != []:
-        try:
-            geo_entity = metadata[geo[0]]
-            geo_entity_type = utils.get_norm_value(geo_entity, "@type")
-            if geo_entity_type == "GeoCoordinates" and utils.get_norm_value(entity, "name") != []:
-                geo_result[geo[0]] = True
-            else:
-                geo_result[geo[0]] = [False, error_message["TypeError"].format(geo[0])]
-        except KeyError:
-            geo_result[geo[0]] = [False, error_message["ReferencingError"]]
+def geoName_required(item, entity, metadata, geo_result, error_message):
+	entity_property = utils.get_norm_value(entity, item)
+	if entity_property != []:
+		for entityProp in entity_property:
+			try:
+				geo_entity = metadata[entityProp]
+				if utils.get_norm_value(geo_entity, "name") != []:
+					geo_result[entityProp] = True
+				else:
+					geo_result[entityProp] = [False, error_message["Missingname"].format(entityProp)]
+			except KeyError:
+				geo_result[entityProp] = [False, error_message["ReferencingError"].format(entityProp)]
 
-def type_correctnessWithGeo(id_, entity, metadata, geo_result, error_message):
-    place_type = utils.get_norm_value(entity, "@type")
-    if place_type[0] == "Place":
-        geo_correctness(entity, metadata, geo_result, error_message)
-    else:
-        geo_result[id_] = [False, error_message["TypeError"].format(id_)]
 
 def places_check(tar_file, extension):
     
@@ -731,10 +628,12 @@ def places_check(tar_file, extension):
     for entity in metadata.values():
         id_ = utils.get_norm_value(entity, "@id")[0]
         entity_type = utils.get_norm_value(entity, "@type")
-        if entity_type[0] == "Place":
-            geo_correctness(entity, metadata, geo_result, error_message)
-        if id_.startswith("http://sws.geonames.org/") or id_.startswith("https://www.geonames.org/"):
-            type_correctnessWithGeo(id_, entity, metadat, geo_result, error_message)
+        if entity_type != []:
+	        if entity_type[0] == "Place":
+	        	get_entity("geo", entity, metadatae, geo_result, error_message)
+	        	geoName_required("geo", entity, metadata, geo_result, error_message)
+	        if entity_type[0] == "Dataset" or entity_type == "File":
+	        	geoName_required("contentLocation", entity, metadata, geo_result, error_message)
     
     for values in geo_result.values():
         if isinstance(values, list):
