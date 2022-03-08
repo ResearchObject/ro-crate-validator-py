@@ -387,34 +387,53 @@ def organization_check(tar_file, extension):
 #         else:
 #             contact_result[contact_point[0]] = [False, error_message["TypeError"].format(contact_point)]
 
+def url_check(item, entityProp, metadata, result, error_message):
+	if utils.is_url(entityProp):
+		upd_result(item, entityProp, metadata, result, error_message)
+	else:
+		if item == "citation":
+			result[entityProp] = [False, error_message["IDError"].format(entityProp)]
 
-def get_entity(item, entity, metadata, result, error_message, flag = False):
+def get_entity(item, entity, metadata, result, error_message, further_check = False, urlVal_required = False):
+
+	"""
+	The Boolean further check is to find the further referencing data entity. 
+	The urlVal_required is for those data entity requiring the value of specific property is url.
+	At this stage, there are only three differnet cases.
+	For more generic, more specific situation should be specified.
+	"""
+
 	entity_property = utils.get_norm_value(entity, item)
 	if entity_property != []:
-		for entityPro in entity_property:
-			if (item == "publisher" or item == "author") and flag:
-				get_entity("contactPoint", metadata[entityPro], metadata, result, error_message)
-			elif utils.is_url(entityPro):
-				upd_result(item, entityPro, metadata, result, error_message)
+		for entityProp in entity_property:
+			if urlVal_required and not further_check:
+				url_check(item, entityProp, metadata, result, error_message)
+			elif further_check:
+				upd_result(item, entityProp, metadata, result, error_message, further_check = True)
 			else:
-				if item == "citation" and not utils.is_url(entityPro):
-					result[entity] = [False, error_message["IDError"].format(entity)]
-				upd_result(item, entityPro, metadata, result, error_message)
+				upd_result(item, entityProp, metadata, result, error_message)
 
-def upd_result(item, entity_property, metadata, result, error_message):
-	referencing_entity = metadata[entity_property]
-	type = utils.get_norm_value(referencing_entity, "@type")
+def upd_result(item, entity_property, metadata, result, error_message, further_check = False, urlVal_required = False):
 	try:
-		type = type[0]
-	except IndexError:
-		result[entity_property] = [False, error_message["TypeError"].format(entity_property)]
+		referencing_entity = metadata[entity_property]
+		type = utils.get_norm_value(referencing_entity, "@type")
+		try:
+			type = type[0]
+			if type == correct_value[item] or type in correct_value[item]:
+				result[entity_property] = True
+			else:
+				result[entity_property] = [False, error_message["TypeError"].format(entity_property)]
 
-	# val = correct_value[item].replace("@", "") if "@" in correct_value[entity_property] else correct_value[entity_property]
+			if further_check:
+				if item == "author" or item == "publisher":
+					get_entity("contactPoint", referencing_entity, metadata, result, error_message)
+				else:
+					get_entity(item, referencing_entity, metadata, result, error_message)
 
-	if type == correct_value[item] or type in correct_value[item]:
-		result[entity_property] = True
-	else:
-		result[entity_property] = [False, error_message["TypeError"].format(entity_property)]
+		except IndexError:
+			result[entity_property] = [False, error_message["TypeError"].format(entity_property)]
+	except KeyError:
+		result[entity_property] = [False, error_message["ReferencingError"].format(entity_property)]
 
 
 def contact_info_check(tar_file, extension):
@@ -601,7 +620,8 @@ def funder_check(tar_file, extension):
     
     for entity in metadata.values():
         if utils.get_norm_value(entity, "@type")[0] == "Dataset":
-            get_funder(depth, entity, metadata, funder_result, error_message)
+        	get_entity("funder", entity, metadata, funder_result, error_message)
+            # get_funder(depth, entity, metadata, funder_result, error_message)
             
     for values in funder_result.values():
         if isinstance(values, list):
