@@ -1,0 +1,10 @@
+.avi
+.cwl
+.knime
+.ga
+.wsp
+.yxmd
+.wfx
+.ps1
+.nwf
+.wkfx
