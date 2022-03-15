@@ -1,14 +1,13 @@
 import os 
 import json
 import datetime
-from validator.utils import Result as Result
+from rocrateValidator.utils import Result as Result
 import zipfile
 import rocrate.utils as utils
 import rocrate.rocrate as rocrate
 from datetime import datetime
+import rocrateValidator.workflow_extension as we
 import pytest
-# from utils import Result as Result
-
 
 correct_value = {
 	"contactPoint":"ContactPoint",
@@ -337,10 +336,10 @@ def url_check(item, entityProp, metadata, result, error_message):
 		if item == "citation":
 			result[entityProp] = [False, error_message["IDError"].format(entityProp)]
 
-def get_entity(item, entity, metadata, result, error_message, further_check = False, urlVal_required = False):
+def get_entity(item, entity, metadata, result, error_message, is_multipleEntity = False, urlVal_required = False):
 
 	"""
-	The Boolean further check is to find the further referencing data entity. 
+	The Boolean is_multipleEntity is to find the further referencing data entity. 
 	The urlVal_required is for those data entity requiring the value of specific property is url.
 	At this stage, there are only three differnet cases.
 	For more generic, more specific situation should be specified.
@@ -349,14 +348,14 @@ def get_entity(item, entity, metadata, result, error_message, further_check = Fa
 	entity_property = utils.get_norm_value(entity, item)
 	if entity_property != []:
 		for entityProp in entity_property:
-			if urlVal_required and not further_check:
+			if urlVal_required and not is_multipleEntity:
 				url_check(item, entityProp, metadata, result, error_message)
-			elif further_check:
-				upd_result(item, entityProp, metadata, result, error_message, further_check = True)
+			elif is_multipleEntity:
+				upd_result(item, entityProp, metadata, result, error_message, is_multipleEntity = True)
 			else:
 				upd_result(item, entityProp, metadata, result, error_message)
 
-def upd_result(item, entity_property, metadata, result, error_message, further_check = False, urlVal_required = False):
+def upd_result(item, entity_property, metadata, result, error_message, is_multipleEntity = False, urlVal_required = False):
 	try:
 		referencing_entity = metadata[entity_property]
 		type = utils.get_norm_value(referencing_entity, "@type")
@@ -367,7 +366,7 @@ def upd_result(item, entity_property, metadata, result, error_message, further_c
 			else:
 				result[entity_property] = [False, error_message["TypeError"].format(entity_property)]
 
-			if further_check:
+			if is_multipleEntity:
 				if item == "author" or item == "publisher":
 					get_entity("contactPoint", referencing_entity, metadata, result, error_message)
 				else:
@@ -734,7 +733,7 @@ def scripts_and_workflow_check(tar_file, extension):
     """
 
     NAME = "Scripts and workflow check"
-    wkfext_path = '/Users/xuanqili/Desktop/ro-crate-validator-py/src/workflow_extension.txt'
+    # wkfext_path = '/Users/xuanqili/Desktop/ro-crate-validator-py/src/workflow_extension.txt'
 
     error_message = {
         "WorkflowError":"Scripts and Workflow is Wrong",
@@ -752,8 +751,9 @@ def scripts_and_workflow_check(tar_file, extension):
     ### check if recognised workflow file meets the requirments
     for entity in metadata.values():
         id_ = utils.get_norm_value(entity, "@id")[0]
-        with open (wkfext_path, "r") as file:
-            extension_set = file.read().splitlines()
+        extension_set = list(we.get_workflow_extension())
+        # with open (wkfext_path, "r") as file:
+        #     extension_set = file.read().splitlines()
         recognisedWkf_upd(extension_set, entity, workflow_result, id_, error_message)
     
     ### check unrecognised workflow file with ComputaionalWorkflow in its @type

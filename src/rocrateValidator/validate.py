@@ -1,15 +1,9 @@
-# import os
-# import sys
-# from pathlib import Path
-
-# file = Path(os.path.abspath('')).resolve()
-# parent, root = file.parent, file.parents[1]
-# sys.path.append(str(root))
-
+import os
 import json
 from collections import defaultdict
-import syntaxCheck as sync
-import semanticCheck as smtc
+import rocrateValidator.syntaxCheck as sync
+import rocrateValidator.semanticCheck as smtc
+import rocrateValidator.check_list as ck
 
 
 class validate:
@@ -53,8 +47,9 @@ class validate:
             "Invalid": "This is an INVALID RO-Crate"
         }
         
-        with open ("check_list.txt") as file: 
-            check_list = list(map(lambda s: s.strip(), file.readlines()))
+        check_list = list(ck.get_check_list())
+        # with open ("check_list.txt") as file: 
+        #     check_list = list(map(lambda s: s.strip(), file.readlines()))
         
         ### store the functions in a dictionary
         for x in check_list:
@@ -88,7 +83,7 @@ class validate:
     def validator(self):
         for methods in self.functions: 
             result = methods(self.tar_file, self.extension)
-            if (result.NAME == "File existence" or result.NAME == "File_size" or result.NAME == "Metadata file existence") and result.code == -1:
+            if (result.NAME == "File existence" or result.NAME == "File_size" or result.NAME == "Metadata file existence" or result.NAME == "Json check" or result.NAME == "Json-ld check") and result.code == -1:
                 self.update_output(result.NAME, result.code, result.message)
                 break
             self.update_output(result.NAME, result.code, result.message)

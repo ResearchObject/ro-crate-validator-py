@@ -1,10 +1,7 @@
 import os
 import zipfile
 import json
-from validator.utils import Result as Result
-# import import_ipynb
-# from utils import Result as Result
-
+from rocrateValidator.utils import Result as Result
 
 def existence_check(tar_file, extension):
     
@@ -59,7 +56,7 @@ def string_value_check(tar_file, extension):
                 parsed_json = json.loads(json_string)
                 json.dumps(parsed_json, indent = 4, sort_keys = True)
             except json.JSONDecodeError as e:
-                return Result(NAME, code = -1, message = repr(e))
+                return Result(NAME, code = -1, message = "Json Syntax Error: %s." %repr(e) + "Validation Aborted.")
 
     elif extension == ".zip":
         zf = zipfile.ZipFile(tar_file, 'r')
@@ -76,7 +73,7 @@ def check_context(tar_file, extension):
     
     NAME = "Json-ld check"
     error_mesage = {
-        "ContextNotFoundError": "Context is not provided. Validation Aborted."
+        "ContextNotFoundError": "Syntax Error: Context is not provided. Validation Aborted."
     }
     metadata = "ro-crate-metadata.json"
     
@@ -85,7 +82,7 @@ def check_context(tar_file, extension):
             try: 
                 parsed_jsonld = json.load(f)
             except json.JSONDecodeError as e:
-                return Result(NAME, code = -1, error_message = repr(e))
+                return Result(NAME, code = -1, message = repr(e))
         context_data = parsed_jsonld.get("@context")
         if context_data == None:
             return Result(NAME, code = -1, message = error_message["ContextNotFoundError"])

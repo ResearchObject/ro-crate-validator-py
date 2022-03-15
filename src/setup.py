@@ -1,15 +1,15 @@
 import setuptools 
 
 setuptools.setup(name = 'rocrateValidator',
-	version = '0.0.9', 
+	version = '0.0.20', 
 	description = 'This is python library for ro-crate validator',
 	package=["src",
-			"src.rocrateValidator", 
+			"src.rocrateValidator",
 			"test", 
-			"test.integration", 
-			"test.samples"
-			"test.samples/invalid", 
-			"test.samples/valid"
+			"test.integration"
+			# "test.samples"
+			# "test.samples/invalid", 
+			# "test.samples/valid"
 			],
 	package_data = {"rocrateValidator": ["rocrateValidator/workflow_extension.txt", "rocrateValidator/check_list.txt"]},
   	include_package_data=True,

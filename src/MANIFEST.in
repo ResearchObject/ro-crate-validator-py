@@ -1,4 +1,4 @@
-recursive-include validator *.txt
+recursive-include rocrateValidator *.txt
 recursive-include test/samples/invalid *.json
 recursive-include test/samples/valid/ *.
 recursive-include test/samples/valid/ *.html
