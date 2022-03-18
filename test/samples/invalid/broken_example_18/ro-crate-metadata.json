@@ -77,8 +77,10 @@
         },
         {
             "@id": "design/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "citation": {"@id": "https://doi.org/10.1109/TCYB.2014.2386282"}
         },
+        
         {
             "@id": "LICENSE",
             "@type": "File"

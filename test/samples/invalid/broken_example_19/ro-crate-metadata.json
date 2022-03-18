@@ -77,7 +77,14 @@
         },
         {
             "@id": "design/",
-            "@type": "Dataset"
+            "@type": "Dataset", 
+            "publisher": {"@id": "https://ror.org/03f0f6041"}
+        },
+        {
+            "@id": "https://ror.org/03f0f6041",
+            "@type": "Orddddganization",
+            "name": "University of Technology Sydney",
+            "url": "https://ror.org/03f0f6041"
         },
         {
             "@id": "LICENSE",

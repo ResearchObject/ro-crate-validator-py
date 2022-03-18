@@ -40,6 +40,9 @@
                     "@id": "PhysiCell/"
                 },
                 {
+                    "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf"
+                },
+                {
                     "@id": "PhysiCell_V.1.6.1.zip"
                 },
                 {
@@ -53,6 +56,9 @@
                 },
                 {
                     "@id": "workflow/retropath.kne"
+                },
+                {
+                    "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf"
                 },
                 {
                     "@id": "README.md"
@@ -76,20 +82,57 @@
             "@type": "File"
         },
         {
+        "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf",
+        "@type": "File",
+        "name": "RO-Crate specification",
+        "contentSize": "310691",
+        "encodingFormat": "application/pdf",
+        "sdDatePublished": "2020-04-09T13:09:21+01:00Z"
+      },
+        {
             "@id": "design/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "distribution": {"@id": "http://example.com/downloads/2020/lots_of_little_files.zip"}
         },
+        {
+            "@id": "http://example.com/downloads/2020/lots_of_little_files.zip",
+            "@type": "DataDownload",
+            "encodingFormat": "application/zip",
+            "contentSize": "82818928"
+          },
         {
             "@id": "LICENSE",
             "@type": "File"
         },
         {
+            "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf",
+            "@type": "File",
+            "name": "RO-Crate specification",
+            "contentSize": "310691",
+            "encodingFormat": "application/pdf",
+            "sdDatePublished": "2020-04-09T13:09:21+01:00Z"
+        },
+        {
             "@id": "math/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "author": {"@id": "https://ror.org/03f0f6041"}
+        },
+        {
+          "@id": "https://ror.org/03f0f6041",
+          "@type": "Organization",
+          "name": "University of Technology Sydney",
+          "url": "https://ror.org/03f0f6041"
         },
         {
             "@id": "PhysiCell/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "author": {"@id": "https://orcid.org/0000-0002-8367-6908"}
+        },
+        {
+            "@id": "https://orcid.org/0000-0002-8367-6908",
+            "@type": "Persossn",
+            "affiliation": "University of Technology Sydney",
+            "name": "J. Xuan"
         },
         {
             "@id": "PhysiCell_V.1.6.1.zip",
@@ -144,7 +187,7 @@
         },
         {
             "@id": "#macklin",
-            "@type": "Person",
+            "@type": "Persoddn",
             "name": "Paul Macklin"
         },
         {

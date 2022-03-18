@@ -40,6 +40,9 @@
                     "@id": "PhysiCell/"
                 },
                 {
+                    "@id": "https://www.researchobject.org/ro-crate/1.1/data-entities.html#web-based-data-entities"
+                },
+                {
                     "@id": "PhysiCell_V.1.6.1.zip"
                 },
                 {
@@ -87,6 +90,16 @@
             "@id": "math/",
             "@type": "Dataset"
         },
+        {
+        "@id": "https://www.researchobject.org/ro-crate/1.1/data-entities.html#web-based-data-entities",
+        "@type": "File",
+        "name": "RO-Crate specification",
+        "contentSize": "310691",
+        "description": "RO-Crate specification",
+        "encodingFormat": "application/pdf",
+        "sdDatePublished": "2020-04-09T13:09:21+01:00Z"
+
+      },
         {
             "@id": "PhysiCell/",
             "@type": "Dataset"

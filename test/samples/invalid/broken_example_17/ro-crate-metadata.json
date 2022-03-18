@@ -75,21 +75,65 @@
             "@id": "changes.md",
             "@type": "File"
         },
+        
         {
             "@id": "design/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "author": {"@id": "https://orcid.org/0000-0001-6121-5409"}
+        },
+        {
+              "@id": "https://orcid.org/0000-0001-6121-5409",
+              "@type": "Person",
+              "contactPoint": {
+                "@id": "mailto:tim.luckett@uts.edu.au"
+              },
+              "familyName": "Luckett",
+              "givenName": "Tim",
+              "identifier": "https://orcid.org/0000-0001-6121-5409",
+              "name": "Tim Luckett"
+        },
+        {
+              "@id": "mailto:tim.luckett@uts.edu.au",
+              "@type": "ContaPoint",
+              "contactType": "customer service",
+              "email": "tim.luckett@uts.edu.au",
+              "identifier": "tim.luckett@uts.edu.au",
+              "url": "https://orcid.org/0000-0001-6121-5409"
         },
         {
             "@id": "LICENSE",
-            "@type": "File"
+            "@type": "File",
+            "author": {"@id": "https://orcid.org/0000-0002-8367-6908"}
+        },
+        {
+            "@id": "https://orcid.org/0000-0002-8367-6908",
+            "@type": "Person",
+            "affiliation": "University of Technology Sydney",
+            "name": "J. Xuan"
         },
         {
             "@id": "math/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "author": {"@id": "https://orcid.org/0000-0002-3545-944X"},
+            "publisher": {"@id": "https://ror.org/03f0f6041"}
         },
         {
+          "@id": "https://ror.org/03f0f6041",
+          "@type": "Organization",
+          "name": "University of Technology Sydney"
+        },
+        {
+          "@id": "https://orcid.org/0000-0002-3545-944X",
+          "@type": "Person",
+          "affiliation": {"@id": "https://ror.org/03f0f6041"},
+          "email": "peter.sefton@uts.edu.au",
+          "name": "Peter Sefton"
+        },
+
+        {
             "@id": "PhysiCell/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "publisher": {"@id": "https://orcid.org/0000-0002-8367-6908"}
         },
         {
             "@id": "PhysiCell_V.1.6.1.zip",

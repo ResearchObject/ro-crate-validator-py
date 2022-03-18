@@ -93,8 +93,14 @@
         },
         {
             "@id": "PhysiCell_V.1.6.1.zip",
-            "@type": "File"
+            "@type": "File",
+            "encodingFormat": ["application/pdf", {"@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/19"}]
         },
+        {
+            "@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/19",
+            "name": "Acrobat PDF 1.5 - Portable Document Format",
+            "@type": "WebSiiiite"
+          },
         {
             "@id": "PhysiCell_V.1.7.0.zip",
             "@type": "File"

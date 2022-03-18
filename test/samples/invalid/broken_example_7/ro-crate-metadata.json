@@ -110,7 +110,7 @@
         },
         {
             "@id": "some_extension.md",
-            "@type": "File",
+            "@type": "Filedd",
             "name": "Common Workflow Language (CWL) Workflow Description, v1.0.2"
 
         },

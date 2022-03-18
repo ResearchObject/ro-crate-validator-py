@@ -52,10 +52,13 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.kne"
+                    "@id": "workflow/retropath.md"
                 },
                 {
                     "@id": "README.md"
+                },
+                {
+                    "@id": "photos/"
                 }
             ],
             "isBasedOn": "https://zenodo.org/record/5595136#.YYlJ9BB_phF",
@@ -128,8 +131,8 @@
 
         },
         {
-            "@id": "workflow/retropath.kne",  
-            "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
+            "@id": "workflow/retropath.md",  
+            "@type": ["File", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",
             "description": "Retrosynthesis workflow calculating chemical reactions",
@@ -166,6 +169,13 @@
             "@id": "#heiland",
             "@type": "Person",
             "name": "Randy Heiland"
+        },
+        {
+          "@id": "photos/",
+          "@type": "Dataset",
+          "name": "Photos of Gibraltar from 1950 till 1975",
+          "about": {"@id": "http://dbpedia.org/resource/Gibraltar"},
+          "temporalCoverage": {"@id": "http://dbpedia.org/resource/Gibraltar"}
         }
     ]
 }

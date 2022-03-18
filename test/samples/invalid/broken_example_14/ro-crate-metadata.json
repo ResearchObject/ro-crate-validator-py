@@ -40,6 +40,9 @@
                     "@id": "PhysiCell/"
                 },
                 {
+                    "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf"
+                },
+                {
                     "@id": "PhysiCell_V.1.6.1.zip"
                 },
                 {
@@ -88,12 +91,26 @@
             "@type": "Dataset"
         },
         {
+        "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf",
+        "@type": "File",
+        "name": "RO-Crate specification",
+        "contentSize": "310691",
+        "description": "RO-Crate specification",
+        "encodingFormat": "application/pdf"
+      },
+        {
             "@id": "PhysiCell/",
             "@type": "Dataset"
         },
         {
             "@id": "PhysiCell_V.1.6.1.zip",
-            "@type": "File"
+            "@type": "File",
+            "encodingFormat": ["application/pdf", {"@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/19"}]
+        },
+        {
+            "@id": "https://www.nationalarchives.gov.uk/PRONOM/fmt/19",
+            "name": "Acrobat PDF 1.5 - Portable Document Format",
+            "@type": "Website"
         },
         {
             "@id": "PhysiCell_V.1.7.0.zip",

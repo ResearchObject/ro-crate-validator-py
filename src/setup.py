@@ -1,7 +1,7 @@
 import setuptools 
 
 setuptools.setup(name = 'rocrateValidator',
-	version = '0.0.20', 
+	version = '0.2.0', 
 	description = 'This is python library for ro-crate validator',
 	package=["src",
 			"src.rocrateValidator",

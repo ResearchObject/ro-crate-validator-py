@@ -85,7 +85,7 @@
         },
         {
             "@id": "math/",
-            "@type": "Dataset"
+            "@type": "Dataseet"
         },
         {
             "@id": "PhysiCell/",
@@ -137,11 +137,11 @@
             "programmingLanguage": {"@id": "#knime"}
         },
         {
-          "@id": "https://spdx.org/licenses/CC-BY-NC-SA-4.0",
-          "@type": "CreativeWork",
+            "@id": "https://spdx.org/licenses/CC-BY-NC-SA-4.0",
+            "@type": "Creativeork",
           "name": "CC BY 4.0",
           "description": "Creative Commons Attribution 4.0 International License"
-        },
+                },
         {
             "@id": "#macklin",
             "@type": "Person",

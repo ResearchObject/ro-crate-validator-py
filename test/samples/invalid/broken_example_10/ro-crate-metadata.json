@@ -3,7 +3,7 @@
     "@graph": [
         {
             "@id": "./",
-            "@type": "Dataset",
+            "@type": "Datasest",
             "creator": [
                 {
                     "@id": "#macklin"
@@ -89,7 +89,14 @@
         },
         {
             "@id": "PhysiCell/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "author": {"@id": "https://orcid.org/0000-0002-8367-6908"}
+        },
+        {
+            "@id": "https://orcid.org/0000-0002-8367-6908",
+            "@type": "Person",
+            "affiliation": "University of Technology Sydney",
+            "name": "J. Xuan"
         },
         {
             "@id": "PhysiCell_V.1.6.1.zip",

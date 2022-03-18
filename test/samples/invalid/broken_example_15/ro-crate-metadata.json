@@ -34,6 +34,12 @@
                     "@id": "LICENSE"
                 },
                 {
+                    "@id": "lots_of_little_files/"
+                },
+                {
+                    "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf"
+                },
+                {
                     "@id": "math/"
                 },
                 {
@@ -82,6 +88,28 @@
         {
             "@id": "LICENSE",
             "@type": "File"
+        },
+        {
+            "@id": "lots_of_little_files/",
+            "@type": "Dataset",
+            "name": "Too many files",
+            "description": "This directory contains many small files, that we're not going to describe in detail.",
+            "distribution": {"@id": "http://example.com/downloads/2020/lots_of_little_files.zip"}
+            },
+            {
+            "@id": "http://example.com/downloads/2020/lots_of_little_files.zip",
+            "@type": "Download",
+            "encodingFormat": "application/zip",
+            "contentSize": "82818928"
+        },
+        {
+            "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf",
+            "@type": "File",
+            "name": "RO-Crate specification",
+            "contentSize": "310691",
+            "description": "RO-Crate specification",
+            "encodingFormat": "application/pdf",
+            "sdDatePublished": "2020-04-09T13:09:21+01:00Z"
         },
         {
             "@id": "math/",

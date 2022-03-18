@@ -2,8 +2,8 @@
     "@context": "https://w3id.org/ro/crate/1.1/context",
     "@graph": [
         {
-            "@id": "./",
-            "@type": "Dataset",
+            "@id": ".//",
+            "@type": "Datdaset",
             "creator": [
                 {
                     "@id": "#macklin"
@@ -63,7 +63,7 @@
         },
         {
             "@id": "ro-crate-metadata.json",
-            "@type": "CreativeWork",
+            "@type": "CreativewWork",
             "about": {
                 "@id": "./"
             },

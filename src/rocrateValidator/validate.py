@@ -80,6 +80,9 @@ class validate:
         return temp_output
         
                
+    def get_final_result(self):
+        return self.final_result
+
     def validator(self):
         for methods in self.functions: 
             result = methods(self.tar_file, self.extension)
