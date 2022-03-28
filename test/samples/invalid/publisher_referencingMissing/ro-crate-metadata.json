@@ -2,8 +2,8 @@
     "@context": "https://w3id.org/ro/crate/1.1/context",
     "@graph": [
         {
-            "@id": ".//",
-            "@type": "Datdaset",
+            "@id": "./",
+            "@type": "Dataset",
             "creator": [
                 {
                     "@id": "#macklin"
@@ -52,7 +52,7 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.kne"
+                    "@id": "workflow/retropath.knime"
                 },
                 {
                     "@id": "README.md"
@@ -63,7 +63,7 @@
         },
         {
             "@id": "ro-crate-metadata.json",
-            "@type": "CreativewWork",
+            "@type": "CreativeWork",
             "about": {
                 "@id": "./"
             },
@@ -77,11 +77,24 @@
         },
         {
             "@id": "design/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "citation": {"@id": "https://doi.org/10.1109/TCYB.2014.2386282"}
+        },
+        {
+          "@id": "https://doi.org/10.1109/TCYB.2014.2386282",
+          "@type": "ScholarlyArticle",
+          "identifier": "https://doi.org/10.1109/TCYB.2014.2386282",
+          "issn": "2168-2267",
+          "name": "Topic Model for Graph Mining",
+          "journal": "IEEE Transactions on Cybernetics",
+          "datePublished": "2015"
         },
         {
             "@id": "LICENSE",
-            "@type": "File"
+            "@type": "File",
+            "publisher": {
+            "@id": "https://ror.org/03f0f6041"
+          }
         },
         {
             "@id": "math/",
@@ -128,7 +141,7 @@
 
         },
         {
-            "@id": "workflow/retropath.kne",  
+            "@id": "workflow/retropath.knime",  
             "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",

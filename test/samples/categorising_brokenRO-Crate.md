@@ -58,8 +58,6 @@
 
 ## 6.Invalid root data entity
 
-You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
-
 **_Test 01 Invalid root data entity @type value_**
 
 **_Purpose:_** @type must be Dataset
@@ -73,7 +71,7 @@ You can export the current file by clicking **Export to disk** in the menu. You 
 **_Test 03 Missing about property_**
 
 **_Purpose:_**  The Ro-Crate Metadata file descriptor MUST have an about property referencing the _Root Data Entity_, which SHOULD have an '@id' of './'.
-**_Input example:_** https://github.com/ResearchObject/ro-crate-validator-py/blob/main/test/samples/invalid/invalid_is_inAboutObj.json
+**_Input example:_** https://github.com/ResearchObject/ro-crate-validator-py/blob/main/test/samples/invalid/invalid_is_inAboutObj.jsonß
 
 
 ## Mini-Report 

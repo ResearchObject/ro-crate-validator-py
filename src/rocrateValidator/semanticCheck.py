@@ -282,15 +282,18 @@ def webbased_entity_check(tar_file, extension):
     
     context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
     
-    for entity in metadata.values():
-        type = utils.get_norm_value(entity, "@type")[0]
-        id_ = utils.get_norm_value(entity, "@id")[0]
-        
-        ### update result
-        if type == "File" and utils.is_url(id_):
-            urlFile_updRlt(id_, entity, webbased_result, error_message)
-        elif type == "Dataset":
-            dirOnWeb_updRlt(entity, metadata, webbased_result, error_message)
+    hasPart = utils.get_norm_value(metadata["./"], "hasPart") if utils.get_norm_value(metadata["./"], "@type") == ["Dataset"] else []
+    if hasPart != []:
+        for entity in hasPart:
+            try:
+                type = utils.get_norm_value(metadata[entity], "@type")[0]
+                id_ = utils.get_norm_value(metadata[entity], "@id")[0]
+                if type == "File" and utils.is_url(id_):
+                    urlFile_updRlt(id_, metadata[entity], webbased_result, error_message)
+                elif type == "Dataset":
+                    dirOnWeb_updRlt(metadata[entity], metadata, webbased_result, error_message)
+            except KeyError:
+                webbased_result[entity] = [False, error_message["TypeError"].format(entity)]
     
     for values in webbased_result.values():
         if isinstance(values, list):
@@ -305,7 +308,12 @@ def check_author_type(author, metadata, person_result, error_message, warning_me
             try:
                 type = utils.get_norm_value(metadata[author], "@type")
                 if type[0] == "Person":
-                    person_result[author] = True
+                    # person_result[author] = True
+                    affiliation = utils.get_norm_value(metadata[author], "affiliation")
+                    if affiliation != []:
+                        person_result[author] = True
+                    else: 
+                        person_result[author] = error_message["AffiliationMissing"]
                 elif type[0] == "Organization":
                     person_result[author] = warning_message['OrganizationAuthor'].format(author)
                 else:
@@ -324,10 +332,12 @@ def person_entity_check(tar_file, extension):
     error_message = {
         "PersonError": "Semantic Error: Invalid Person entity {}",
         "TypeError": "Semantic Error: Invalid @type value of {}",
-        "ReferencingError": "Semantic Error: Invalid referencing {} NOT Provided. Url Author MUST provide referencing entity."
+        "ReferencingError": "Semantic Error: Invalid referencing {} NOT Provided. Url Author MUST provide referencing entity.",
+        "AffiliationMissing" : "Semantic Error: The Person Entity SHOULD have affiliation property."
     }
     warning_message = {
-        "OrganizationAuthor" : "WARNING: The Author {} is an Organization"
+        "OrganizationAuthor" : "WARNING: The Author {} is an Organization",
+        "AffiliationMissing" : "WARNING: The Person Entity SHOULD have affiliation property."
     }
     
     person_result = {}
@@ -340,6 +350,10 @@ def person_entity_check(tar_file, extension):
     for values in person_result.values():
         if isinstance(values, list):
             return Result(NAME, code = -1, message = values[1])
+
+    for values in person_result.values():
+        if isinstance(values, str):
+            return Result(NAME, code = 1, message = values)
     
     return Result(NAME)
 
@@ -396,7 +410,9 @@ def publisher_affiliation_correctness(item, entity, metadata, organization_resul
     entity_property = utils.get_norm_value(entity, item)
     if entity_property != []:
         entity_property = entity_property[0]
-        if utils.get_norm_value(metadata[entity_property], "@type") == ["Organization"]:
+        if utils.get_norm_value(metadata[entity_property], "@type") == ["Organization"] and item == "publisher":
+            organization_result[utils.get_norm_value(entity, "@id")[0]] = True
+        elif utils.get_norm_value(metadata[entity_property], "@type") == ["Person"] and item == "affiliation":
             organization_result[utils.get_norm_value(entity, "@id")[0]] = True
         else:
             organization_result[utils.get_norm_value(entity, "@id")[0]] = [False, error_message["OrganizationError"].format(utils.get_norm_value(metadata[entity_property], "@id")[0])]
@@ -420,15 +436,15 @@ def organization_check(tar_file, extension):
     
     context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
     for entity in metadata.values():
-        type = utils.get_norm_value(entity, "@type")[0]
+        type = utils.get_norm_value(entity, "@type")
         
         ### check the value of publisher for each dataset and scholarly article entity
-        if type =="Dataset" or type == "ScholarlyArticle":
+        if type == ["Dataset"] or type == ["ScholarlyArticle"]:
         	# get_entity("publisher", entity, metadata, organization_result, error_message)
             publisher_affiliation_correctness("publisher", entity, metadata, organization_result, error_message)
             
         ### check the vlaue of affiliation for each file entity
-        elif type == "File":
+        elif type == ["File"]:
         	# get_entity("affiliation", entity, metadata, organization_result, error_message)
             publisher_affiliation_correctness("affiliation", entity, metadata, organization_result, error_message)
     
@@ -458,7 +474,7 @@ def contact_info_check(tar_file, extension):
     
     context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
     for entity in metadata.values():
-        if utils.get_norm_value(entity, "@type")[0] == "Dataset":
+        if utils.get_norm_value(entity, "@type") == ["Dataset"]:
         	### The flag attributes is to find the additional information which is referencing entity of contactPoint 
         	get_entity("author", entity, metadata, contact_result, error_message, True)
         	get_entity("publisher", entity, metadata, contact_result, error_message, True)
@@ -489,8 +505,8 @@ def citation_check(tar_file, extension):
     
     context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
     for entity in metadata.values():
-        type = utils.get_norm_value(entity, "@type")[0]
-        if type == "Dataset" or type == "File":
+        type = utils.get_norm_value(entity, "@type")
+        if type == ["Dataset"] or type == ["File"]:
             get_entity("citation", entity, metadata, citation_result, error_message, urlVal_required = True)
 
     for values in citation_result.values():
@@ -550,7 +566,7 @@ def funder_check(tar_file, extension):
     context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
     
     for entity in metadata.values():
-        if utils.get_norm_value(entity, "@type")[0] == "Dataset":
+        if utils.get_norm_value(entity, "@type") == ["Dataset"]:
         	get_entity("funder", entity, metadata, funder_result, error_message, is_multipleEntity = True)
             # get_funder(depth, entity, metadata, funder_result, error_message)
             
@@ -634,7 +650,7 @@ def places_check(tar_file, extension):
     error_message = {
         "Missingname": "Semantic Error: Invalid Place Entity {}. The Place has geo property SHOULD have a name.",
         "TypeError":"Semantic Error: Invalid Type Value at {}",
-        "ReferencingError": "Semantic Error: Invalid Refernencing {} or Not Provided"
+        "ReferencingError": "Semantic Error: Invalid Referencing {} or Not Provided"
     }
     
     geo_result = {}
@@ -694,32 +710,42 @@ def time_check(tar_file, extension):
     
     return Result(NAME)
 
+def upd_thumbnailRlt(thumbnail, hasFile, thumbnail_result, error_message):
+    if thumbnail != []:
+        for item in thumbnail:
+            if item in hasFile:
+                thumbnail_result[item] = True
+            else:
+                thumbnail_result[item] = [False, error_message["ReferencingError"].format(item)]
 
-# def thumbnails_check(tar_file, extension):
+def thumbnails_check(tar_file, extension):
     
-#     """
-#     Multiple file in same property(via hasFile) with one of thumbnails. 
-#     The thumbnails SHOULD be included in the RO-Crate
-#     For more information and exaples, please check:
-#     <https://www.researchobject.org/ro-crate/1.1/contextual-entities.html#thumbnails>
-#     """
-    
-#     NAME = "Thumbnails property check"
-#     error_message = {
-        
-#     }
-    
-#     thumbnails_result = {}
-    
-#     context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
-#     for entity in metadata.values():
-#         thumbnail = utils.get_norm_value(entity, "thumbnail")
-#         hasFile = utils.get_norm_value(entity, "hasFile")
-#         if thumbnail != []:
-#             if thumbnails[0] in hasFile:
-#                 thumbnails_result = True
-#             else:
-#                 thumbnails_result = [False, error_message[""]]
+    """
+    Multiple file in same property(via hasFile) with one of thumbnails. 
+    The thumbnails SHOULD be included in the RO-Crate
+    For more information and exaples, please check:
+    <https://www.researchobject.org/ro-crate/1.1/contextual-entities.html#thumbnails>
+    """
+
+    NAME =  "Thumbnails check"
+    error_message = {
+        "ReferencingError": "Semantic Error: Invalid thumbnail {}. The Thumbnail MUST be included in the RO-Crate."
+    }
+    thumbnail_result = {}
+
+    context, metadata = rocrate.read_metadata(os.path.join(tar_file, "ro-crate-metadata.json"))
+
+    for entity in metadata.values():
+        thumbnail = utils.get_norm_value(entity, "thumbnail")
+        hasFile = utils.get_norm_value(entity, "hasFile")
+        upd_thumbnailRlt(thumbnail, hasFile, thumbnail_result, error_message)
+
+
+    for values in thumbnail_result.values():
+        if isinstance(values, list):
+            return Result(NAME, code = -1, message = values[1])
+
+    return Result(NAME)
 
 
 def recognisedWkf_upd(extension_set, entity, workflow_result, id_, error_message):
@@ -732,13 +758,13 @@ def recognisedWkf_upd(extension_set, entity, workflow_result, id_, error_message
         else:
             workflow_result[id_] = [False, error_message["TypeError"].format(id_)]
 
-def unrecognisedWfk_upd(type, extension_set, entity, workflow_result, warning_message):
+def unrecognisedWfk_upd(type, extension_set, entity, workflow_result, warning_message, error_message):
     extension = os.path.splitext(utils.get_norm_value(entity,"@id")[0])[1]
     if extension not in extension_set:
         if "File" in type and "SoftwareSourceCode" in type:
-            workflow_result[utils.get_norm_value(entity, "@id")[0]] = True
-        else:
             workflow_result[utils.get_norm_value(entity, "@id")[0]] = warning_message["UnrecognizedWkf"].format(extension)
+        else:
+            workflow_result[utils.get_norm_value(entity, "@id")[0]] = [False, error_message["TypeError"].format(utils.get_norm_value(entity, "@id")[0])]
 
 def scripts_and_workflow_check(tar_file, extension):
     
@@ -776,7 +802,7 @@ def scripts_and_workflow_check(tar_file, extension):
     for entity in metadata.values():
         type = utils.get_norm_value(entity, "@type")
         if "ComputationalWorkflow" in type:
-            unrecognisedWfk_upd(type, extension_set, entity, workflow_result, warning_message)
+            unrecognisedWfk_upd(type, extension_set, entity, workflow_result, warning_message, error_message)
 
     ### fucntion will return True only when the all of the recognised workflow file are correct      
     for values in workflow_result.values():

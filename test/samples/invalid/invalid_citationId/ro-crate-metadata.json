@@ -52,7 +52,7 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.kne"
+                    "@id": "workflow/retropath.knime"
                 },
                 {
                     "@id": "README.md"
@@ -77,7 +77,15 @@
         },
         {
             "@id": "design/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "citation": {"@id": "10.1109/TCYB.2014.2386282"},
+            "publisher": {"@id": "https://ror.org/03f0f6041"}
+        },
+        {
+            "@id": "https://ror.org/03f0f6041",
+            "@type": "Organization",
+            "name": "University of Technology Sydney",
+            "url": "https://ror.org/03f0f6041"
         },
         {
             "@id": "LICENSE",
@@ -85,7 +93,7 @@
         },
         {
             "@id": "math/",
-            "@type": "Dataseet"
+            "@type": "Dataset"
         },
         {
             "@id": "PhysiCell/",
@@ -128,13 +136,19 @@
 
         },
         {
-            "@id": "workflow/retropath.kne",  
+            "@id": "workflow/retropath.knime",  
             "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",
             "description": "Retrosynthesis workflow calculating chemical reactions",
             "license": { "@id": "https://spdx.org/licenses/CC-BY-NC-SA-4.0"},
             "programmingLanguage": {"@id": "#knime"}
+        },
+        {
+          "@id": "https://spdx.org/licenses/CC-BY-NC-SA-4.0",
+          "@type": "CreativeWork",
+          "name": "CC BY 4.0",
+          "description": "Creative Commons Attribution 4.0 International License"
         },
         {
             "@id": "#macklin",

@@ -33,6 +33,7 @@ class validate:
             "Licensing property check": smtc.licensing_check,
             "Places property check": smtc.places_check,
             "Time property check": smtc.time_check,
+            # "Thumbnails check":smtc.thumbnails_check,
             "Scripts and workflow check":smtc.scripts_and_workflow_check
         }
         

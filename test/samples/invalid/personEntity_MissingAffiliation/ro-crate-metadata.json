@@ -55,10 +55,7 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.kne"
-                },
-                {
-                    "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf"
+                    "@id": "workflow/retropath.knime"
                 },
                 {
                     "@id": "README.md"
@@ -87,7 +84,7 @@
         "name": "RO-Crate specification",
         "contentSize": "310691",
         "encodingFormat": "application/pdf",
-        "sdDatePublished": "2020-04-09T13:09:21+01:00Z"
+        "sdDatePublished": "2021-11-09T00:51:55.837325"
       },
         {
             "@id": "design/",
@@ -103,14 +100,6 @@
         {
             "@id": "LICENSE",
             "@type": "File"
-        },
-        {
-            "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf",
-            "@type": "File",
-            "name": "RO-Crate specification",
-            "contentSize": "310691",
-            "encodingFormat": "application/pdf",
-            "sdDatePublished": "2020-04-09T13:09:21+01:00Z"
         },
         {
             "@id": "math/",
@@ -130,8 +119,7 @@
         },
         {
             "@id": "https://orcid.org/0000-0002-8367-6908",
-            "@type": "Persossn",
-            "affiliation": "University of Technology Sydney",
+            "@type": "Person",
             "name": "J. Xuan"
         },
         {
@@ -171,7 +159,7 @@
 
         },
         {
-            "@id": "workflow/retropath.kne",  
+            "@id": "workflow/retropath.knime",  
             "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",

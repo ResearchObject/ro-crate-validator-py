@@ -2,7 +2,7 @@
     "@context": "https://w3id.org/ro/crate/1.1/context",
     "@graph": [
         {
-            "@id": ".//",
+            "@id": "./",
             "@type": "Dataset",
             "creator": [
                 {
@@ -52,7 +52,7 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.kne"
+                    "@id": "workflow/retropath.knime"
                 },
                 {
                     "@id": "README.md"
@@ -77,7 +77,14 @@
         },
         {
             "@id": "design/",
-            "@type": "Dataset"
+            "@type": "Dataset", 
+            "publisher": {"@id": "https://ror.org/03f0f6041"}
+        },
+        {
+            "@id": "https://ror.org/03f0f6041",
+            "@type": "Organdddization",
+            "name": "University of Technology Sydney",
+            "url": "https://ror.org/03f0f6041"
         },
         {
             "@id": "LICENSE",
@@ -128,7 +135,7 @@
 
         },
         {
-            "@id": "workflow/retropath.kne",  
+            "@id": "workflow/retropath.knime",  
             "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",

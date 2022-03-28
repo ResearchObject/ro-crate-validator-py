@@ -40,6 +40,9 @@
                     "@id": "PhysiCell/"
                 },
                 {
+                    "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf"
+                },
+                {
                     "@id": "PhysiCell_V.1.6.1.zip"
                 },
                 {
@@ -52,7 +55,7 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.kne"
+                    "@id": "workflow/retropath.knime"
                 },
                 {
                     "@id": "README.md"
@@ -76,22 +79,49 @@
             "@type": "File"
         },
         {
+        "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf",
+        "@type": "File",
+        "name": "RO-Crate specification",
+        "contentSize": "310691",
+        "encodingFormat": "application/pdf",
+        "sdDatePublished": "2021-11-09T00:51:55.837325"
+      },
+        {
             "@id": "design/",
             "@type": "Dataset",
-            "citation": {"@id": "https://doi.org/10.1109/TCYB.2014.2386282"}
+            "distribution": {"@id": "http://example.com/downloads/2020/lots_of_little_files.zip"}
         },
-        
+        {
+            "@id": "http://example.com/downloads/2020/lots_of_little_files.zip",
+            "@type": "DataDownload",
+            "encodingFormat": "application/zip",
+            "contentSize": "82818928"
+          },
         {
             "@id": "LICENSE",
             "@type": "File"
         },
         {
             "@id": "math/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "author": {"@id": "https://ror.org/03f0f6041"}
+        },
+        {
+          "@id": "https://ror.org/03f0f6041",
+          "@type": "Organization",
+          "name": "University of Technology Sydney",
+          "url": "https://ror.org/03f0f6041"
         },
         {
             "@id": "PhysiCell/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "author": {"@id": "https://orcid.org/0000-0002-8367-6908"}
+        },
+        {
+            "@id": "https://orcid.org/0000-0002-8367-6908",
+            "@type": "Persossn",
+            "affiliation": "University of Technology Sydney",
+            "name": "J. Xuan"
         },
         {
             "@id": "PhysiCell_V.1.6.1.zip",
@@ -130,7 +160,7 @@
 
         },
         {
-            "@id": "workflow/retropath.kne",  
+            "@id": "workflow/retropath.knime",  
             "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",
@@ -146,7 +176,7 @@
         },
         {
             "@id": "#macklin",
-            "@type": "Person",
+            "@type": "Persoddn",
             "name": "Paul Macklin"
         },
         {

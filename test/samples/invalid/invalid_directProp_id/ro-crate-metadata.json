@@ -2,8 +2,8 @@
     "@context": "https://w3id.org/ro/crate/1.1/context",
     "@graph": [
         {
-            "@id": "./",
-            "@type": "Datasest",
+            "@id": ".//",
+            "@type": "Datasset",
             "creator": [
                 {
                     "@id": "#macklin"
@@ -52,7 +52,7 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.kne"
+                    "@id": "workflow/retropath.knime"
                 },
                 {
                     "@id": "README.md"
@@ -89,14 +89,7 @@
         },
         {
             "@id": "PhysiCell/",
-            "@type": "Dataset",
-            "author": {"@id": "https://orcid.org/0000-0002-8367-6908"}
-        },
-        {
-            "@id": "https://orcid.org/0000-0002-8367-6908",
-            "@type": "Person",
-            "affiliation": "University of Technology Sydney",
-            "name": "J. Xuan"
+            "@type": "Dataset"
         },
         {
             "@id": "PhysiCell_V.1.6.1.zip",
@@ -135,7 +128,7 @@
 
         },
         {
-            "@id": "workflow/retropath.kne",  
+            "@id": "workflow/retropath.knime",  
             "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",

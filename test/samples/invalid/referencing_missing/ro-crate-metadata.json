@@ -52,13 +52,10 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.md"
+                    "@id": "workflow/retropath.knime"
                 },
                 {
                     "@id": "README.md"
-                },
-                {
-                    "@id": "photos/"
                 }
             ],
             "isBasedOn": "https://zenodo.org/record/5595136#.YYlJ9BB_phF",
@@ -88,7 +85,7 @@
         },
         {
             "@id": "math/",
-            "@type": "Dataset"
+            "@type": "Dataseet"
         },
         {
             "@id": "PhysiCell/",
@@ -131,19 +128,13 @@
 
         },
         {
-            "@id": "workflow/retropath.md",  
-            "@type": ["File", "ComputationalWorkflow"],
+            "@id": "workflow/retropath.knime",  
+            "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",
             "description": "Retrosynthesis workflow calculating chemical reactions",
             "license": { "@id": "https://spdx.org/licenses/CC-BY-NC-SA-4.0"},
             "programmingLanguage": {"@id": "#knime"}
-        },
-        {
-          "@id": "https://spdx.org/licenses/CC-BY-NC-SA-4.0",
-          "@type": "CreativeWork",
-          "name": "CC BY 4.0",
-          "description": "Creative Commons Attribution 4.0 International License"
         },
         {
             "@id": "#macklin",
@@ -169,13 +160,6 @@
             "@id": "#heiland",
             "@type": "Person",
             "name": "Randy Heiland"
-        },
-        {
-          "@id": "photos/",
-          "@type": "Dataset",
-          "name": "Photos of Gibraltar from 1950 till 1975",
-          "about": {"@id": "http://dbpedia.org/resource/Gibraltar"},
-          "temporalCoverage": {"@id": "http://dbpedia.org/resource/Gibraltar"}
         }
     ]
 }

@@ -11,32 +11,32 @@ from rocrateValidator import validate as validate
 
 testing_path = "test/samples/valid"
 testing_path0 = "test/samples/invalid/brroken_example"
-testing_path1 = "test/samples/invalid/broken_example_1"
-testing_path2 = "test/samples/invalid/broken_example_2"
-testing_path3 = "test/samples/invalid/broken_example_3"
-testing_path4 = "test/samples/invalid/broken_example_4"
-testing_path5 = "test/samples/invalid/broken_example_5"
-testing_path6 = "test/samples/invalid/broken_example_6"
-testing_path7 = "test/samples/invalid/broken_example_7"
-testing_path8 = "test/samples/invalid/broken_example_8"
-testing_path9 = "test/samples/invalid/broken_example_9"
-testing_path10 = "test/samples/invalid/broken_example_10"
-testing_path11 = "test/samples/invalid/broken_example_11"
-testing_path12 = "test/samples/invalid/broken_example_12"
-testing_path13 = "test/samples/invalid/broken_example_13"
-testing_path14 = "test/samples/invalid/broken_example_14"
-testing_path15 = "test/samples/invalid/broken_example_15"
-testing_path16 = "test/samples/invalid/broken_example_16"
-testing_path17 = "test/samples/invalid/broken_example_17"
-testing_path18 = "test/samples/invalid/broken_example_18"
-testing_path19 = "test/samples/invalid/broken_example_19"
-testing_path20 = "test/samples/invalid/broken_example_20"
-testing_path21 = "test/samples/invalid/broken_example_21"
-testing_path22 = "test/samples/invalid/broken_example_22"
-testing_path23 = "test/samples/invalid/broken_example_23"
-testing_path24 = "test/samples/invalid/broken_example_24"
-testing_path25 = "test/samples/invalid/broken_example_25"
-testing_path26 = "test/samples/invalid/broken_example_26"
+testing_path1 = "test/samples/invalid/referencing_missing"
+testing_path2 = "test/samples/invalid/context_missing"
+testing_path3 = "test/samples/invalid/invalid_json"
+testing_path4 = "test/samples/invalid/metadataFile_missing"
+testing_path5 = "test/samples/invalid/invalid_descriptorType"
+testing_path6 = "test/samples/invalid/empty_metadataFile"
+testing_path7 = "test/samples/invalid/invalid_encodingType1"
+testing_path8 = "test/samples/invalid/invalid_directProp_id"
+testing_path9 = "test/samples/invalid/invalid_personEntity_type"
+testing_path10 = "test/samples/invalid/invalid_directProp_type"
+testing_path11 = "test/samples/invalid/invalid_licenseType"
+testing_path12 = "test/samples/invalid/invalid_directProp_dateFormat"
+testing_path13 = "test/samples/invalid/invalid_encodingType2"
+testing_path14 = "test/samples/invalid/webBasedEntity_publishedDateMissing"
+testing_path15 = "test/samples/invalid/invalid_webBasedEntity_type"
+testing_path16 = "test/samples/invalid/invalid_webBasedEntity_id"
+testing_path17 = "test/samples/invalid/invalid_contactInfo_type"
+testing_path18 = "test/samples/invalid/citation_referencingMissing"
+testing_path19 = "test/samples/invalid/invalid_organizationType"
+testing_path20 = "test/samples/invalid/invalid_citationId"
+testing_path21 = "test/samples/invalid/publisher_referencingMissing"
+testing_path22 = "test/samples/invalid/invalid_funderType"
+testing_path23 = "test/samples/invalid/invalid_licenseId"
+testing_path24 = "test/samples/invalid/placeEntity_missingGeoName"
+testing_path25 = "test/samples/invalid/invalid_workflowType"
+testing_path26 = "test/samples/invalid/unrecognised_workflow"
 extension = ""
 
 class DataBase:
@@ -59,7 +59,7 @@ class DataBase:
 
     @pytest.fixture
     def metadata_false_1(self):
-        return utils.Result(NAME = "Metadata file existence", code = -1, message = "Syntax Error: No metadata file in file/directory: test/samples/invalid/broken_example_4. Validation Aborted.")
+        return utils.Result(NAME = "Metadata file existence", code = -1, message = "Syntax Error: No metadata file in file/directory: test/samples/invalid/metadataFile_missing. Validation Aborted.")
 
     @pytest.fixture
     def json_true(self):
@@ -404,11 +404,11 @@ class TestGroup(DataBase):
 
         assert outcome == True
 
-    def test_direct_property_1(self, directProperty_idError):
-        result = semanticCheck.direct_property_check(testing_path8, extension)
-        outcome = self.check_result(result, directProperty_idError)
+    # def test_direct_property_1(self, directProperty_idError):
+    #     result = semanticCheck.direct_property_check(testing_path8, extension)
+    #     outcome = self.check_result(result, directProperty_idError)
 
-        assert outcome == True
+    #     assert outcome == True
 
     def test_direct_property_2(self, directProperty_typeError):
         result = semanticCheck.direct_property_check(testing_path10, extension)
@@ -565,12 +565,6 @@ class TestGroup(DataBase):
     def test_contactInfo_entity_2(self, contactInfo_typeError):
         result = semanticCheck.contact_info_check(testing_path17, extension)
         outcome  = self.check_result(result, contactInfo_typeError)
-
-        assert outcome == True
-
-    def test_citation_entity_3(self, citation_idError):
-        result = semanticCheck.citation_check(testing_path20, extension)
-        outcome  = self.check_result(result, citation_idError)
 
         assert outcome == True
 

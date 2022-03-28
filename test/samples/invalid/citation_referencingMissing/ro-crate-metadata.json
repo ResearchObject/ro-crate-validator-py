@@ -52,7 +52,7 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.kne"
+                    "@id": "workflow/retropath.knime"
                 },
                 {
                     "@id": "README.md"
@@ -77,15 +77,10 @@
         },
         {
             "@id": "design/",
-            "@type": "Dataset", 
-            "publisher": {"@id": "https://ror.org/03f0f6041"}
+            "@type": "Dataset",
+            "citation": {"@id": "https://doi.org/10.1109/TCYB.2014.2386282"}
         },
-        {
-            "@id": "https://ror.org/03f0f6041",
-            "@type": "Orddddganization",
-            "name": "University of Technology Sydney",
-            "url": "https://ror.org/03f0f6041"
-        },
+        
         {
             "@id": "LICENSE",
             "@type": "File"
@@ -135,7 +130,7 @@
 
         },
         {
-            "@id": "workflow/retropath.kne",  
+            "@id": "workflow/retropath.knime",  
             "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",

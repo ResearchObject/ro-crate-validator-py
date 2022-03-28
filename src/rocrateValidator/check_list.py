@@ -19,6 +19,7 @@ def get_check_list():
 				"Licensing property check",
 				"Places property check",
 				"Time property check",
+				# "Thumbnails check",
 				"Scripts and workflow check"
 				]
 	return check_list

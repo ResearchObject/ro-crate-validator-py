@@ -40,6 +40,9 @@
                     "@id": "PhysiCell/"
                 },
                 {
+                    "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf"
+                },
+                {
                     "@id": "PhysiCell_V.1.6.1.zip"
                 },
                 {
@@ -52,7 +55,7 @@
                     "@id": "PhysiCell_V.1.9.0.zip"
                 },
                 {
-                    "@id": "workflow/retropath.kne"
+                    "@id": "workflow/retropath.knime"
                 },
                 {
                     "@id": "README.md"
@@ -76,20 +79,49 @@
             "@type": "File"
         },
         {
+        "@id": "https://zenodo.org/record/3541888/files/ro-crate-1.0.0.pdf",
+        "@type": "File",
+        "name": "RO-Crate specification",
+        "contentSize": "310691",
+        "encodingFormat": "application/pdf",
+        "sdDatePublished": "2021-11-09T00:51:55.837325"
+      },
+        {
             "@id": "design/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "distribution": {"@id": "http://example.com/downloads/2020/lots_of_little_files.zip"}
         },
+        {
+            "@id": "http://example.com/downloads/2020/lots_of_little_files.zip",
+            "@type": "DataDownload",
+            "encodingFormat": "application/zip",
+            "contentSize": "82818928"
+          },
         {
             "@id": "LICENSE",
             "@type": "File"
         },
         {
             "@id": "math/",
-            "@type": "Dataseet"
+            "@type": "Dataset",
+            "author": {"@id": "https://ror.org/03f0f6041"}
+        },
+        {
+          "@id": "https://ror.org/03f0f6041",
+          "@type": "Organization",
+          "name": "University of Technology Sydney",
+          "url": "https://ror.org/03f0f6041"
         },
         {
             "@id": "PhysiCell/",
-            "@type": "Dataset"
+            "@type": "Dataset",
+            "author": {"@id": "https://orcid.org/0000-0002-8367-6908"}
+        },
+        {
+            "@id": "https://orcid.org/0000-0002-8367-6908",
+            "@type": "Person",
+            "name": "J. Xuan",
+            "affiliation":" 2021-11-09T00:51:55.837325"
         },
         {
             "@id": "PhysiCell_V.1.6.1.zip",
@@ -128,23 +160,23 @@
 
         },
         {
-            "@id": "workflow/retropath.kne",  
+            "@id": "workflow/retropath.knime",  
             "@type": ["File", "SoftwareSourceCode", "ComputationalWorkflow"],
             "author": {"@id": "#thomas"},
             "name": "RetroPath Knime workflow",
             "description": "Retrosynthesis workflow calculating chemical reactions",
-            "license": { "@id": "licenses/CC-BY-NC-SA-4.0"},
+            "license": { "@id": "https://spdx.org/licenses/CC-BY-NC-SA-4.0"},
             "programmingLanguage": {"@id": "#knime"}
         },
         {
-            "@id": "licenses/CC-BY-NC-SA-4.0",
-            "@type": "CreativeWork",
+          "@id": "https://spdx.org/licenses/CC-BY-NC-SA-4.0",
+          "@type": "CreativeWork",
           "name": "CC BY 4.0",
           "description": "Creative Commons Attribution 4.0 International License"
-                },
+        },
         {
             "@id": "#macklin",
-            "@type": "Person",
+            "@type": "Persoddn",
             "name": "Paul Macklin"
         },
         {
