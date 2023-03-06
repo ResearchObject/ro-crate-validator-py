@@ -8,3 +8,6 @@ class Result:
         self.NAME = NAME
         self.code = code 
         self.message = message
+    def __repr__(self):
+        return "Result [{}] code={} message={}".format(self.NAME, self.code, self.message)
+        

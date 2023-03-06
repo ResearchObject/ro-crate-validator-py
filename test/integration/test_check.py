@@ -268,7 +268,7 @@ class DataBase:
 
     @pytest.fixture
     def rdf_false_1(self):
-        return utils.Result(NAME = "RDF Parse check", code = -1, message = "Broken shex, donkey ate it.")
+        return utils.Result(NAME = "RDF Parse check", code = -1, message = "Can't parse JSON: JSONDecodeError('Invalid control character at: line 9 column 37 (char 221)')")
 
 
 class TestGroup(DataBase):
@@ -277,6 +277,8 @@ class TestGroup(DataBase):
         if result.NAME == exp_result.NAME and result.code == exp_result.code and result.message == exp_result.message:
             return True
         else:
+            print("Expected: {}\nGot:      {}".format(exp_result, result), 
+                  file=sys.stderr)
             return False
     def aborted_result(self, result):
         if result == [None]:
@@ -341,12 +343,12 @@ class TestGroup(DataBase):
         assert outcome == True
 
     def test_rdf(self, rdf_true):
-        result =shexCheck.rdf_parse_check(testing_path1, extension)
+        result =shexCheck.rdf_parse_check(testing_path, extension)
         outcome = self.check_result(result, rdf_true)
         assert outcome == True
 
     def test_rdf_1(self, rdf_false_1):
-        result =shexCheck.rdf_parse_check(testing_path1, extension)
+        result =shexCheck.rdf_parse_check(testing_path3, extension)
         outcome = self.check_result(result, rdf_false_1)
         assert outcome == True
 
