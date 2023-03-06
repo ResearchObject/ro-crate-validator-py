@@ -38,6 +38,7 @@ testing_path23 = "test/samples/invalid/invalid_licenseId"
 testing_path24 = "test/samples/invalid/placeEntity_missingGeoName"
 testing_path25 = "test/samples/invalid/invalid_workflowType"
 testing_path26 = "test/samples/invalid/unrecognised_workflow"
+testing_invalid_jsonld = "test/samples/invalid/invalid_jsonld"
 extension = ""
 
 class DataBase:
@@ -267,9 +268,12 @@ class DataBase:
         return utils.Result(NAME = "RDF Parse check")
 
     @pytest.fixture
-    def rdf_false_1(self):
+    def rdf_json_error(self):
         return utils.Result(NAME = "RDF Parse check", code = -1, message = "Can't parse JSON: JSONDecodeError('Invalid control character at: line 9 column 37 (char 221)')")
 
+    @pytest.fixture
+    def rdf_invalid_jsonld(self):
+        return utils.Result(NAME = "RDF Parse check", code = -3, message = "Can't parse JSON-LD as RDF: AttributeError(\"'int' object has no attribute 'get'\")")
 
 class TestGroup(DataBase):
 
@@ -347,10 +351,16 @@ class TestGroup(DataBase):
         outcome = self.check_result(result, rdf_true)
         assert outcome == True
 
-    def test_rdf_1(self, rdf_false_1):
+    def test_rdf_1(self, rdf_json_error):
         result =shexCheck.rdf_parse_check(testing_path3, extension)
-        outcome = self.check_result(result, rdf_false_1)
+        outcome = self.check_result(result, rdf_json_error)
         assert outcome == True
+
+    def test_rdf_invalid_jsonld(self, rdf_invalid_jsonld):
+        result =shexCheck.rdf_parse_check(testing_invalid_jsonld, extension)
+        outcome = self.check_result(result, rdf_invalid_jsonld)
+        assert outcome == True
+
 
     def test_json(self, json_true):
         result =syntaxCheck.string_value_check(testing_path1, extension)

@@ -1,9 +1,12 @@
 {
-    "@context": "https://w3id.org/ro/crate/1.1/context",
-    "@Graph": [
+    "@context": [
+        "https://w3id.org/ro/crate/1.1/context",
+        12],
+    "@graph": [
+        "Not an object",
         {
-            "@ID": "./",
-            "@type": "Dataset",
+            "@id": ["./", 2],
+            "@type": { "Dataset" : [] },
             "creator": [
                 {
                     "@id": "#macklin"
