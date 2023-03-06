@@ -33,11 +33,11 @@ testing_path18 = "test/samples/invalid/citation_referencingMissing"
 testing_path19 = "test/samples/invalid/invalid_organizationType"
 testing_path20 = "test/samples/invalid/invalid_citationId"
 testing_path21 = "test/samples/invalid/publisher_referencingMissing"
-testing_path22 = "test/samples/invalid/invalid_funderType"
-testing_path23 = "test/samples/invalid/invalid_licenseId"
-testing_path24 = "test/samples/invalid/placeEntity_missingGeoName"
-testing_path25 = "test/samples/invalid/invalid_workflowType"
-testing_path26 = "test/samples/invalid/unrecognised_workflow"
+sample_invalid_funderType = "test/samples/invalid/invalid_funderType"
+sample_invalid_licenceId = "test/samples/invalid/invalid_licenseId"
+sample_invalid_placeEntity = "test/samples/invalid/placeEntity_missingGeoName"
+sample_invalid_workflowType = "test/samples/invalid/invalid_workflowType"
+sample_unrecognized_workflow = "test/samples/invalid/unrecognised_workflow"
 testing_invalid_jsonld = "test/samples/invalid/invalid_jsonld"
 extension = ""
 
@@ -646,7 +646,7 @@ class TestGroup(DataBase):
         assert outcome == True
 
     def test_funder_entity_2(self, funder_typeError):
-        result = semanticCheck.funder_check(testing_path22, extension)
+        result = semanticCheck.funder_check(sample_invalid_funderType, extension)
         outcome  = self.check_result(result, funder_typeError)
 
         assert outcome == True
@@ -677,7 +677,7 @@ class TestGroup(DataBase):
         assert outcome == True
 
     def test_licensing_entity_4(self, licensing_idError):
-        result = semanticCheck.licensing_check(testing_path23, extension)
+        result = semanticCheck.licensing_check(sample_invalid_licenceId, extension)
         outcome  = self.check_result(result, licensing_idError)
 
         assert outcome == True
@@ -696,7 +696,7 @@ class TestGroup(DataBase):
         assert outcome == True
 
     def test_places_entity_2(self, places_nameError):
-        result = semanticCheck.places_check(testing_path24, extension)
+        result = semanticCheck.places_check(sample_invalid_placeEntity, extension)
         outcome  = self.check_result(result, places_nameError)
 
         assert outcome == True
@@ -728,13 +728,13 @@ class TestGroup(DataBase):
         assert outcome == True
 
     def test_workflow_2(self, workflow_typeError):
-        result = semanticCheck.scripts_and_workflow_check(testing_path25, extension)
+        result = semanticCheck.scripts_and_workflow_check(sample_invalid_workflowType, extension)
         outcome  = self.check_result(result, workflow_typeError)
 
         assert outcome == True
 
     def test_workflow_3(self, workflow_warning):
-        result = semanticCheck.scripts_and_workflow_check(testing_path26, extension)
+        result = semanticCheck.scripts_and_workflow_check(sample_unrecognized_workflow, extension)
         outcome  = self.check_result(result, workflow_warning)
 
         assert outcome == True
