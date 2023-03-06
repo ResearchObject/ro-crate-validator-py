@@ -1,11 +1,12 @@
 import pytest
-import import_ipynb
+#import import_ipynb
 import os
 import sys
 from pathlib import Path
 
 from rocrateValidator import semanticCheck as semanticCheck
 from rocrateValidator import syntaxCheck as syntaxCheck
+from rocrateValidator import shexCheck
 from rocrateValidator import utils as utils
 from rocrateValidator import validate as validate
 
@@ -261,9 +262,13 @@ class DataBase:
     def workflow_warning(self):
         return utils.Result(NAME = "Scripts and workflow check", code = 1, message = "WARNING: .md is not a recognised workflow extension. Please raise an issue at GitHub: <https://github.com/ResearchObject/ro-crate-validator-py/issues>.")
 
+    @pytest.fixture
+    def rdf_true(self):
+        return utils.Result(NAME = "RDF Parse check")
 
-
-
+    @pytest.fixture
+    def rdf_false_1(self):
+        return utils.Result(NAME = "RDF Parse check", code = -1, message = "Broken shex, donkey ate it.")
 
 
 class TestGroup(DataBase):
@@ -335,10 +340,19 @@ class TestGroup(DataBase):
 
         assert outcome == True
 
+    def test_rdf(self, rdf_true):
+        result =shexCheck.rdf_parse_check(testing_path1, extension)
+        outcome = self.check_result(result, rdf_true)
+        assert outcome == True
+
+    def test_rdf_1(self, rdf_false_1):
+        result =shexCheck.rdf_parse_check(testing_path1, extension)
+        outcome = self.check_result(result, rdf_false_1)
+        assert outcome == True
+
     def test_json(self, json_true):
         result =syntaxCheck.string_value_check(testing_path1, extension)
         outcome = self.check_result(result, json_true)
-
         assert outcome == True
 
     def test_json_1(self, json_true):
@@ -712,4 +726,5 @@ class TestGroup(DataBase):
         outcome  = self.check_result(result, workflow_warning)
 
         assert outcome == True
+
 

@@ -4,6 +4,7 @@ from collections import defaultdict
 import rocrateValidator.syntaxCheck as sync
 import rocrateValidator.semanticCheck as smtc
 import rocrateValidator.check_list as ck
+import rocrateValidator.shexCheck as sc
 
 
 class validate:
@@ -34,7 +35,9 @@ class validate:
             "Places property check": smtc.places_check,
             "Time property check": smtc.time_check,
             # "Thumbnails check":smtc.thumbnails_check,
-            "Scripts and workflow check":smtc.scripts_and_workflow_check
+            "Scripts and workflow check":smtc.scripts_and_workflow_check,
+            "RDF parsing check": sc.rdf_parse_check,
+            "ShEX checks": sc.shex_check,
         }
         
         ### initialize the check result and function set as empty lists to store the checking function
