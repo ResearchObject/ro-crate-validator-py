@@ -1,5 +1,4 @@
 import pytest
-import import_ipynb
 import os
 import sys
 from pathlib import Path
