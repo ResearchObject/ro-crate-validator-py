@@ -1,0 +1,13 @@
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project]
+name = "rocrateValidator"
+version = "0.2.16-RC1"
+
+[build-system]
+requires = [
+    "setuptools >= 35.0.2",
+    "setuptools_scm >= 2.0.0, <3"
+]
+build-backend = "setuptools.build_meta"
