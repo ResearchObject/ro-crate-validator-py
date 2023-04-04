@@ -8,7 +8,6 @@ import rocrate.utils as utils
 import rocrate.rocrate as rocrate
 from datetime import datetime
 import rocrateValidator.workflow_extension as we
-import pytest
 
 correct_value = {
 	"contactPoint":"ContactPoint",
