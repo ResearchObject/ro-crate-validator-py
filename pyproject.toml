@@ -1,6 +1,6 @@
 [project]
 name = "rocrateValidator"
-version = "0.2.16-RC1"
+version = "0.2.16-RC4"
 description = "RO-Crate Validator library"
 
 [tool.setuptools.packages.find]
