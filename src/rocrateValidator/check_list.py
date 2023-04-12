@@ -20,7 +20,7 @@ def get_check_list():
 				"Places property check",
 				"Time property check",
 				# "Thumbnails check",
-				"Scripts and workflow check"
+				#"Scripts and workflow check" ## See issue #2
 				]
 	return check_list
 
